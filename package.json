@@ -1,6 +1,10 @@
 {
-  "name": "@tsjam/typed-scss-modules",
+  "name": "@najemi-software/typed-scss-modules",
   "version": "10.2.0",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "TypeScript type definition generator for SCSS CSS Modules",
   "type": "module",
   "exports": {
@@ -27,9 +31,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/am0wa/tsjam-typed-scss-modules.git"
+    "url": "git+https://github.com/Najemi-Software/typed-scss-modules.git"
   },
-  "homepage": "https://github.com/am0wa/tsjam-typed-scss-modules#readme",
+  "homepage": "https://github.com/Najemi-Software/typed-scss-modules#readme",
   "keywords": [
     "scss",
     "css modules",
@@ -90,7 +94,7 @@
     "sass": {
       "optional": true
     },
-    "sass-embeded": {
+    "sass-embedded": {
       "optional": true
     }
   },

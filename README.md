@@ -1,8 +1,8 @@
 # 🎁 typed-scss-modules
 
-**note:** The package derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained.
+**note:** This package (`@najemi-software/typed-scss-modules`) is a fork of [@tsjam/typed-scss-modules](https://github.com/am0wa/tsjam-typed-scss-modules) by [am0wa](https://github.com/am0wa), which in turn derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained. All credit for the original work goes to the upstream authors.
 
-[![npm version](https://img.shields.io/npm/v/@tsjam/typed-scss-modules.svg?style=flat)](https://www.npmjs.com/package/typed-scss-modules)
+[![npm version](https://img.shields.io/npm/v/@najemi-software/typed-scss-modules.svg?style=flat)](https://www.npmjs.com/package/@najemi-software/typed-scss-modules)
 
 Generate TypeScript definitions (`.d.ts`) files for CSS Modules that are written in SCSS (`.scss`). Check out [this post to learn more](https://skovy.dev/generating-typescript-definitions-for-css-modules-using-sass/) about the rationale and inspiration behind this package.
 
@@ -34,21 +34,21 @@ export declare const textHighlighted: string;
 Install and run as a `devDependency`:
 
 ```bash
-yarn add -D typed-scss-modules
+yarn add -D @najemi-software/typed-scss-modules
 yarn typed-scss-modules src
 ```
 
 Or, install globally:
 
 ```bash
-yarn global add typed-scss-modules
+yarn global add @najemi-software/typed-scss-modules
 typed-scss-modules src
 ```
 
 Or, with npm:
 
 ```bash
-npm install -D typed-scss-modules
+npm install -D @najemi-software/typed-scss-modules
 npx typed-scss-modules src
 ```
 
