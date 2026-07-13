@@ -1,50 +1,50 @@
 name: "Set Version"
 description: >
-  Sets the given version in the current worktree: package.json's "version"
-  and both version fields in package-lock.json (the root "version" and
-  packages."".version). Does not commit, tag or publish. Assumes the
-  repository is checked out and node/npm are available.
+    Sets the given version in the current worktree: package.json's "version"
+    and both version fields in package-lock.json (the root "version" and
+    packages."".version). Does not commit, tag or publish. Assumes the
+    repository is checked out and node/npm are available.
 
 inputs:
-  version:
-    description: "Exact version to set (X.Y.Z or X.Y.Z-alpha.<pr>.<n>)"
-    required: true
+    version:
+        description: "Exact version to set (X.Y.Z or X.Y.Z-alpha.<pr>.<n>)"
+        required: true
 
 runs:
-  using: "composite"
-  steps:
-    - name: Set version in source
-      shell: bash
-      env:
-        VERSION: ${{ inputs.version }}
-      run: |
-        set -euo pipefail
+    using: "composite"
+    steps:
+        - name: Set version in source
+          shell: bash
+          env:
+              VERSION: ${{ inputs.version }}
+          run: |
+              set -euo pipefail
 
-        if ! grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-alpha\.[0-9]+\.[0-9]+)?$' <<< "$VERSION"; then
-          echo "::error::version '${VERSION}' is not X.Y.Z or X.Y.Z-alpha.<pr>.<n>."
-          exit 1
-        fi
+              if ! grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-alpha\.[0-9]+\.[0-9]+)?$' <<< "$VERSION"; then
+                echo "::error::version '${VERSION}' is not X.Y.Z or X.Y.Z-alpha.<pr>.<n>."
+                exit 1
+              fi
 
-        # npm version updates package.json and both package-lock.json fields.
-        npm version "$VERSION" --no-git-tag-version --allow-same-version --ignore-scripts > /dev/null
+              # npm version updates package.json and both package-lock.json fields.
+              npm version "$VERSION" --no-git-tag-version --allow-same-version --ignore-scripts > /dev/null
 
-        pkg="$(npm pkg get version | tr -d '"')"
-        lock_root="$(jq -r '.version' package-lock.json)"
-        lock_pkg="$(jq -r '.packages[""].version' package-lock.json)"
-        if [ "$pkg" != "$VERSION" ] || [ "$lock_root" != "$VERSION" ] || [ "$lock_pkg" != "$VERSION" ]; then
-          echo "::error::Version fields disagree after update: package.json=${pkg}, lock=${lock_root}, lock packages.\"\"=${lock_pkg}."
-          exit 1
-        fi
+              pkg="$(npm pkg get version | tr -d '"')"
+              lock_root="$(jq -r '.version' package-lock.json)"
+              lock_pkg="$(jq -r '.packages[""].version' package-lock.json)"
+              if [ "$pkg" != "$VERSION" ] || [ "$lock_root" != "$VERSION" ] || [ "$lock_pkg" != "$VERSION" ]; then
+                echo "::error::Version fields disagree after update: package.json=${pkg}, lock=${lock_root}, lock packages.\"\"=${lock_pkg}."
+                exit 1
+              fi
 
-        echo "Version set to ${VERSION} in package.json and package-lock.json."
+              echo "Version set to ${VERSION} in package.json and package-lock.json."
 
-        {
-          echo "### Set Version"
-          echo ""
-          echo "| | |"
-          echo "|---|---|"
-          echo "| Version | \`${VERSION}\` |"
-          echo "| package.json | \`${pkg}\` |"
-          echo "| package-lock.json (root) | \`${lock_root}\` |"
-          echo "| package-lock.json (packages.\"\") | \`${lock_pkg}\` |"
-        } >> "$GITHUB_STEP_SUMMARY"
+              {
+                echo "### Set Version"
+                echo ""
+                echo "| | |"
+                echo "|---|---|"
+                echo "| Version | \`${VERSION}\` |"
+                echo "| package.json | \`${pkg}\` |"
+                echo "| package-lock.json (root) | \`${lock_root}\` |"
+                echo "| package-lock.json (packages.\"\") | \`${lock_pkg}\` |"
+              } >> "$GITHUB_STEP_SUMMARY"

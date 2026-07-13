@@ -1,114 +1,113 @@
 {
-  "name": "@najemi-software/typed-scss-modules",
-  "version": "0.0.0",
-  "private": false,
-  "publishConfig": {
-    "access": "public"
-  },
-  "description": "TypeScript type definition generator for SCSS CSS Modules",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
-    }
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "author": "Martin Najemi <martin@najemi.cz>",
-  "contributors": [
-    {
-      "name": "am0wa",
-      "email": "am0wa.it@gmail.com"
+    "name": "@najemi-software/typed-scss-modules",
+    "version": "0.0.0",
+    "private": false,
+    "description": "TypeScript type definition generator for SCSS CSS Modules",
+    "keywords": [
+        "cli",
+        "css modules",
+        "scss",
+        "scss modules",
+        "type generator",
+        "typescript"
+    ],
+    "homepage": "https://github.com/Najemi-Software/typed-scss-modules#readme",
+    "license": "MIT",
+    "author": "Martin Najemi <martin@najemi.cz>",
+    "contributors": [
+        {
+            "name": "am0wa",
+            "email": "am0wa.it@gmail.com"
+        },
+        {
+            "name": "Spencer Miskoviak",
+            "email": "smiskoviak@gmail.com"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Najemi-Software/typed-scss-modules.git"
     },
-    {
-      "name": "Spencer Miskoviak",
-      "email": "smiskoviak@gmail.com"
-    }
-  ],
-  "license": "MIT",
-  "engines": {
-    "node": ">=22.19",
-    "npm": ">=10.9"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Najemi-Software/typed-scss-modules.git"
-  },
-  "homepage": "https://github.com/Najemi-Software/typed-scss-modules#readme",
-  "keywords": [
-    "scss",
-    "css modules",
-    "cli",
-    "typescript",
-    "type generator",
-    "scss modules"
-  ],
-  "files": [
-    "dist"
-  ],
-  "bin": {
-    "typed-scss-modules": "./dist/cli.js"
-  },
-  "scripts": {
-    "test": "vitest run --silent",
-    "test:watch": "vitest",
-    "typed-scss-modules": "node ./dist/cli.js",
-    "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x dist/cli.js",
-    "check:types": "tsc --noEmit",
-    "check:formatting": "prettier --check '**/*.{js,json,css,md,scss,tsx,ts}'",
-    "check:linting": "eslint .",
-    "prepare": "npm run build && husky"
-  },
-  "devDependencies": {
-    "@tsjam/eslint-config-recommended": "^0.2.4",
-    "@types/node": "^22.19.3",
-    "@types/reserved-words": "^0.1.0",
-    "@types/yargs": "^17.0.35",
-    "@vitest/eslint-plugin": "^1.6.23",
-    "eslint": "^9.34.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.2.7",
-    "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^3.2.4",
-    "sass": "^1.97.1",
-    "sass-embedded": "^1.97.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.8.3",
-    "vitest": "^4.1.10"
-  },
-  "peerDependencies": {
-    "sass": "^1.97.1",
-    "sass-embedded": "^1.97.1"
-  },
-  "peerDependenciesMeta": {
-    "sass": {
-      "optional": true
+    "bin": {
+        "typed-scss-modules": "./dist/cli.js"
     },
-    "sass-embedded": {
-      "optional": true
+    "files": [
+        "dist"
+    ],
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "default": "./dist/index.js"
+        }
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x dist/cli.js",
+        "check:formatting": "oxfmt --check",
+        "check:linting": "eslint .",
+        "check:types": "tsc --noEmit",
+        "clean": "rm -rf ./dist",
+        "prepare": "npm run build && husky",
+        "test": "vitest run --silent",
+        "test:watch": "vitest",
+        "typed-scss-modules": "node ./dist/cli.js"
+    },
+    "dependencies": {
+        "bundle-require": "^5.1.0",
+        "chalk": "4.1.2",
+        "change-case": "^4.1.2",
+        "chokidar": "^3.6.0",
+        "esbuild": "^0.27.2",
+        "glob": "^13.0.0",
+        "joycon": "^3.1.1",
+        "postcss": "^8.4.49",
+        "postcss-modules": "^6.0.1",
+        "reserved-words": "^0.1.2",
+        "slash": "^3.0.0",
+        "yargs": "^17.7.2"
+    },
+    "devDependencies": {
+        "@tsjam/eslint-config-recommended": "^0.2.4",
+        "@types/node": "^22.19.3",
+        "@types/reserved-words": "^0.1.0",
+        "@types/yargs": "^17.0.35",
+        "@vitest/eslint-plugin": "^1.6.23",
+        "eslint": "^9.34.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^16.2.7",
+        "oxfmt": "^0.52.0",
+        "sass": "^1.97.1",
+        "sass-embedded": "^1.97.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3",
+        "vitest": "^4.1.10"
+    },
+    "peerDependencies": {
+        "sass": "^1.97.1",
+        "sass-embedded": "^1.97.1"
+    },
+    "peerDependenciesMeta": {
+        "sass": {
+            "optional": true
+        },
+        "sass-embedded": {
+            "optional": true
+        }
+    },
+    "lint-staged": {
+        "*.{js,mjs,cjs,ts,tsx,jsx,json}": [
+            "oxfmt"
+        ]
+    },
+    "engines": {
+        "node": ">=22.19",
+        "npm": ">=10.9"
     }
-  },
-  "dependencies": {
-    "bundle-require": "^5.1.0",
-    "chalk": "4.1.2",
-    "change-case": "^4.1.2",
-    "chokidar": "^3.6.0",
-    "esbuild": "^0.27.2",
-    "glob": "^13.0.0",
-    "joycon": "^3.1.1",
-    "postcss": "^8.4.49",
-    "postcss-modules": "^6.0.1",
-    "reserved-words": "^0.1.2",
-    "slash": "^3.0.0",
-    "yargs": "^17.7.2"
-  },
-  "lint-staged": {
-    "*.{js,json,css,md,scss,tsx,ts}": [
-      "prettier --write"
-    ]
-  }
 }

@@ -1,198 +1,187 @@
 import fs from "fs";
 import path from "path";
+
 import slash from "slash";
-import {
-  afterEach,
-  beforeEach,
-  describe,
-  expect,
-  it,
-  vi,
-  type MockInstance,
-} from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+
 import { alerts } from "../lib/core/alerts.js";
 import { main } from "../lib/main.js";
+
 import { describeAllImplementations } from "./helpers/index.js";
 
 const dir = "__tests__/dummy-styles";
 
 describeAllImplementations((implementation) => {
-  describe("main", () => {
-    let writeFileSyncSpy: MockInstance<typeof fs.writeFileSync>;
+    describe("main", () => {
+        let writeFileSyncSpy: MockInstance<typeof fs.writeFileSync>;
 
-    beforeEach(() => {
-      // Only mock the writes, so the example files can still be read.
-      writeFileSyncSpy = vi
-        .spyOn(fs, "writeFileSync")
-        .mockImplementation(() => {});
+        beforeEach(() => {
+            // Only mock the writes, so the example files can still be read.
+            writeFileSyncSpy = vi.spyOn(fs, "writeFileSync").mockImplementation(() => {});
 
-      // Avoid creating directories while running tests.
-      vi.spyOn(fs, "mkdirSync").mockImplementation(() => undefined);
+            // Avoid creating directories while running tests.
+            vi.spyOn(fs, "mkdirSync").mockImplementation(() => undefined);
 
-      // Avoid console logs showing up.
-      vi.spyOn(console, "log").mockImplementation(() => {});
+            // Avoid console logs showing up.
+            vi.spyOn(console, "log").mockImplementation(() => {});
 
-      vi.spyOn(alerts, "error").mockImplementation(() => {});
+            vi.spyOn(alerts, "error").mockImplementation(() => {});
+        });
+
+        afterEach(() => {
+            writeFileSyncSpy.mockReset();
+        });
+
+        it("generates types for all .scss files when the pattern is a directory", async () => {
+            const pattern = `${import.meta.dirname}/dummy-styles`;
+
+            await main(pattern, {
+                banner: "",
+                watch: false,
+                ignoreInitial: false,
+                exportType: "named",
+                exportTypeName: "ClassNames",
+                exportTypeInterface: "Styles",
+                listDifferent: false,
+                ignore: [],
+                implementation,
+                async: implementation === "sass-embedded",
+                quoteType: "single",
+                updateStaleOnly: false,
+                logLevel: "verbose",
+                aliases: {
+                    "~fancy-import": `${dir}/complex`,
+                    "~another": `${dir}/style`,
+                },
+                aliasPrefixes: {
+                    "~": `${dir}/nested-styles/`,
+                },
+            });
+
+            expect(alerts.error).not.toHaveBeenCalled();
+            expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
+
+            const expectedDirname = slash(path.join(import.meta.dirname, "dummy-styles"));
+
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                `${expectedDirname}/complex.scss.d.ts`,
+                "export declare const nestedAnother: string;\nexport declare const nestedClass: string;\nexport declare const number1: string;\nexport declare const someStyles: string;\nexport declare const whereSelector: string;\n",
+            );
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                `${expectedDirname}/style.scss.d.ts`,
+                "export declare const someClass: string;\n",
+            );
+        });
+
+        it("generates types for all .scss files and ignores files that match the ignore pattern", async () => {
+            const pattern = `${import.meta.dirname}/dummy-styles`;
+
+            await main(pattern, {
+                banner: "",
+                watch: false,
+                ignoreInitial: false,
+                exportType: "named",
+                exportTypeName: "ClassNames",
+                exportTypeInterface: "Styles",
+                listDifferent: false,
+                ignore: ["**/style.scss"],
+                implementation,
+                async: implementation === "sass-embedded",
+                quoteType: "single",
+                updateStaleOnly: false,
+                logLevel: "verbose",
+                aliases: {
+                    "~fancy-import": `${dir}/complex`,
+                    "~another": `${dir}/style`,
+                },
+                aliasPrefixes: {
+                    "~": `${dir}/nested-styles/`,
+                },
+            });
+
+            expect(alerts.error).not.toHaveBeenCalled();
+            expect(fs.writeFileSync).toHaveBeenCalledTimes(7);
+
+            const expectedDirname = slash(path.join(import.meta.dirname, "dummy-styles"));
+
+            expect(fs.writeFileSync).toHaveBeenCalledWith(
+                `${expectedDirname}/complex.scss.d.ts`,
+                "export declare const nestedAnother: string;\nexport declare const nestedClass: string;\nexport declare const number1: string;\nexport declare const someStyles: string;\nexport declare const whereSelector: string;\n",
+            );
+
+            // Files that should match the ignore pattern.
+            expect(fs.writeFileSync).not.toHaveBeenCalledWith(
+                `${expectedDirname}/style.scss.d.ts`,
+                expect.anything(),
+            );
+            expect(fs.writeFileSync).not.toHaveBeenCalledWith(
+                `${expectedDirname}/nested-styles/style.scss.d.ts`,
+                expect.anything(),
+            );
+        });
+
+        it("reads options from the configuration file", async () => {
+            const pattern = `${import.meta.dirname}/dummy-styles`;
+            // Resolve alias paths before mocking cwd: relative aliases would
+            // otherwise resolve against the mocked directory inside the compiler.
+            const absDir = path.resolve(dir);
+
+            vi.spyOn(process, "cwd").mockReturnValue(path.resolve(pattern));
+
+            await main(pattern, {
+                aliases: {
+                    "~fancy-import": `${absDir}/complex`,
+                    "~another": `${absDir}/style`,
+                },
+                aliasPrefixes: {
+                    "~": `${absDir}/nested-styles/`,
+                },
+                exportType: "default",
+            });
+
+            expect(alerts.error).not.toHaveBeenCalled();
+            expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
+
+            // Transform the calls into a more readable format for the snapshot.
+            const contents = writeFileSyncSpy.mock.calls
+                .map(([fullFilePath, contents]) => ({
+                    path: path.relative(import.meta.dirname, fullFilePath.toString()),
+                    contents,
+                }))
+                // Sort to avoid flakey snapshot tests if call order changes.
+                .sort((a, b) => a.path.localeCompare(b.path));
+
+            expect(contents).toMatchSnapshot();
+        });
+
+        it("outputs the correct files when outputFolder is passed", async () => {
+            const pattern = path.resolve(import.meta.dirname, "dummy-styles");
+
+            await main(pattern, {
+                aliases: {
+                    "~fancy-import": `${dir}/complex`,
+                    "~another": `${dir}/style`,
+                },
+                aliasPrefixes: {
+                    "~": `${dir}/nested-styles/`,
+                },
+                outputFolder: "__generated__",
+            });
+
+            expect(alerts.error).not.toHaveBeenCalled();
+            expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
+            expect(fs.mkdirSync).toHaveBeenCalledTimes(9);
+
+            // Transform the calls into a more readable format for the snapshot.
+            const contents = writeFileSyncSpy.mock.calls
+                .map(([fullFilePath, contents]) => ({
+                    path: path.relative(import.meta.dirname, fullFilePath.toString()),
+                    contents,
+                }))
+                // Sort to avoid flakey snapshot tests if call order changes.
+                .sort((a, b) => a.path.localeCompare(b.path));
+
+            expect(contents).toMatchSnapshot();
+        });
     });
-
-    afterEach(() => {
-      writeFileSyncSpy.mockReset();
-    });
-
-    it("generates types for all .scss files when the pattern is a directory", async () => {
-      const pattern = `${import.meta.dirname}/dummy-styles`;
-
-      await main(pattern, {
-        banner: "",
-        watch: false,
-        ignoreInitial: false,
-        exportType: "named",
-        exportTypeName: "ClassNames",
-        exportTypeInterface: "Styles",
-        listDifferent: false,
-        ignore: [],
-        implementation,
-        async: implementation === "sass-embedded",
-        quoteType: "single",
-        updateStaleOnly: false,
-        logLevel: "verbose",
-        aliases: {
-          "~fancy-import": `${dir}/complex`,
-          "~another": `${dir}/style`,
-        },
-        aliasPrefixes: {
-          "~": `${dir}/nested-styles/`,
-        },
-      });
-
-      expect(alerts.error).not.toHaveBeenCalled();
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
-
-      const expectedDirname = slash(
-        path.join(import.meta.dirname, "dummy-styles")
-      );
-
-      expect(fs.writeFileSync).toHaveBeenCalledWith(
-        `${expectedDirname}/complex.scss.d.ts`,
-        "export declare const nestedAnother: string;\nexport declare const nestedClass: string;\nexport declare const number1: string;\nexport declare const someStyles: string;\nexport declare const whereSelector: string;\n"
-      );
-      expect(fs.writeFileSync).toHaveBeenCalledWith(
-        `${expectedDirname}/style.scss.d.ts`,
-        "export declare const someClass: string;\n"
-      );
-    });
-
-    it("generates types for all .scss files and ignores files that match the ignore pattern", async () => {
-      const pattern = `${import.meta.dirname}/dummy-styles`;
-
-      await main(pattern, {
-        banner: "",
-        watch: false,
-        ignoreInitial: false,
-        exportType: "named",
-        exportTypeName: "ClassNames",
-        exportTypeInterface: "Styles",
-        listDifferent: false,
-        ignore: ["**/style.scss"],
-        implementation,
-        async: implementation === "sass-embedded",
-        quoteType: "single",
-        updateStaleOnly: false,
-        logLevel: "verbose",
-        aliases: {
-          "~fancy-import": `${dir}/complex`,
-          "~another": `${dir}/style`,
-        },
-        aliasPrefixes: {
-          "~": `${dir}/nested-styles/`,
-        },
-      });
-
-      expect(alerts.error).not.toHaveBeenCalled();
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(7);
-
-      const expectedDirname = slash(
-        path.join(import.meta.dirname, "dummy-styles")
-      );
-
-      expect(fs.writeFileSync).toHaveBeenCalledWith(
-        `${expectedDirname}/complex.scss.d.ts`,
-        "export declare const nestedAnother: string;\nexport declare const nestedClass: string;\nexport declare const number1: string;\nexport declare const someStyles: string;\nexport declare const whereSelector: string;\n"
-      );
-
-      // Files that should match the ignore pattern.
-      expect(fs.writeFileSync).not.toHaveBeenCalledWith(
-        `${expectedDirname}/style.scss.d.ts`,
-        expect.anything()
-      );
-      expect(fs.writeFileSync).not.toHaveBeenCalledWith(
-        `${expectedDirname}/nested-styles/style.scss.d.ts`,
-        expect.anything()
-      );
-    });
-
-    it("reads options from the configuration file", async () => {
-      const pattern = `${import.meta.dirname}/dummy-styles`;
-      // Resolve alias paths before mocking cwd: relative aliases would
-      // otherwise resolve against the mocked directory inside the compiler.
-      const absDir = path.resolve(dir);
-
-      vi.spyOn(process, "cwd").mockReturnValue(path.resolve(pattern));
-
-      await main(pattern, {
-        aliases: {
-          "~fancy-import": `${absDir}/complex`,
-          "~another": `${absDir}/style`,
-        },
-        aliasPrefixes: {
-          "~": `${absDir}/nested-styles/`,
-        },
-        exportType: "default",
-      });
-
-      expect(alerts.error).not.toHaveBeenCalled();
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
-
-      // Transform the calls into a more readable format for the snapshot.
-      const contents = writeFileSyncSpy.mock.calls
-        .map(([fullFilePath, contents]) => ({
-          path: path.relative(import.meta.dirname, fullFilePath.toString()),
-          contents,
-        }))
-        // Sort to avoid flakey snapshot tests if call order changes.
-        .sort((a, b) => a.path.localeCompare(b.path));
-
-      expect(contents).toMatchSnapshot();
-    });
-
-    it("outputs the correct files when outputFolder is passed", async () => {
-      const pattern = path.resolve(import.meta.dirname, "dummy-styles");
-
-      await main(pattern, {
-        aliases: {
-          "~fancy-import": `${dir}/complex`,
-          "~another": `${dir}/style`,
-        },
-        aliasPrefixes: {
-          "~": `${dir}/nested-styles/`,
-        },
-        outputFolder: "__generated__",
-      });
-
-      expect(alerts.error).not.toHaveBeenCalled();
-      expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
-      expect(fs.mkdirSync).toHaveBeenCalledTimes(9);
-
-      // Transform the calls into a more readable format for the snapshot.
-      const contents = writeFileSyncSpy.mock.calls
-        .map(([fullFilePath, contents]) => ({
-          path: path.relative(import.meta.dirname, fullFilePath.toString()),
-          contents,
-        }))
-        // Sort to avoid flakey snapshot tests if call order changes.
-        .sort((a, b) => a.path.localeCompare(b.path));
-
-      expect(contents).toMatchSnapshot();
-    });
-  });
 });

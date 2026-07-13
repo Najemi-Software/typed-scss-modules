@@ -1,4 +1,5 @@
 import path from "path";
+
 import type { ConfigOptions } from "../core/types.js";
 
 const CURRENT_WORKING_DIRECTORY = process.cwd();
@@ -9,28 +10,21 @@ const CURRENT_WORKING_DIRECTORY = process.cwd();
  *
  * @param file the SCSS file path
  */
-export const getTypeDefinitionPath = (
-  file: string,
-  options: ConfigOptions
-): string => {
-  let resolvedPath = file;
+export const getTypeDefinitionPath = (file: string, options: ConfigOptions): string => {
+    let resolvedPath = file;
 
-  if (options.outputFolder) {
-    const relativePath = path.relative(CURRENT_WORKING_DIRECTORY, file);
-    resolvedPath = path.resolve(
-      CURRENT_WORKING_DIRECTORY,
-      options.outputFolder,
-      relativePath
-    );
-  }
+    if (options.outputFolder) {
+        const relativePath = path.relative(CURRENT_WORKING_DIRECTORY, file);
+        resolvedPath = path.resolve(CURRENT_WORKING_DIRECTORY, options.outputFolder, relativePath);
+    }
 
-  if (options.allowArbitraryExtensions) {
-    const resolvedDirname = path.dirname(resolvedPath);
-    // Note: `ext` includes a leading period (e.g. '.scss')
-    const { name, ext } = path.parse(resolvedPath);
-    // @see https://www.typescriptlang.org/tsconfig/#allowArbitraryExtensions
-    return path.join(resolvedDirname, `${name}.d${ext}.ts`);
-  } else {
-    return `${resolvedPath}.d.ts`;
-  }
+    if (options.allowArbitraryExtensions) {
+        const resolvedDirname = path.dirname(resolvedPath);
+        // Note: `ext` includes a leading period (e.g. '.scss')
+        const { name, ext } = path.parse(resolvedPath);
+        // @see https://www.typescriptlang.org/tsconfig/#allowArbitraryExtensions
+        return path.join(resolvedDirname, `${name}.d${ext}.ts`);
+    } else {
+        return `${resolvedPath}.d.ts`;
+    }
 };

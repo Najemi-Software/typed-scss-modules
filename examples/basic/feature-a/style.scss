@@ -1,9 +1,9 @@
 @use "../core/variables";
 
 .text {
-  color: variables.$blue;
+    color: variables.$blue;
 
-  &-highlighted {
-    color: variables.$yellow;
-  }
+    &-highlighted {
+        color: variables.$yellow;
+    }
 }
