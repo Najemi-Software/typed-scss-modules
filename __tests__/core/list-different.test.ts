@@ -1,14 +1,25 @@
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from "vitest";
 import { listDifferent } from "../../lib/core/index.js";
 
 //describeAllImplementations((implementation) => {
 describe("listDifferent", () => {
-  let exit: jest.SpyInstance;
-  let alertSpy: jest.SpyInstance;
+  let exit: MockInstance;
+  let alertSpy: MockInstance;
   const implementation = "sass";
 
   beforeEach(() => {
-    alertSpy = jest.spyOn(console, "log");
-    exit = jest.spyOn(process, "exit").mockImplementation();
+    alertSpy = vi.spyOn(console, "log");
+    exit = vi
+      .spyOn(process, "exit")
+      .mockImplementation(() => undefined as never);
   });
 
   afterEach(() => {
@@ -16,7 +27,7 @@ describe("listDifferent", () => {
   });
 
   it("logs invalid type definitions and exits with 1", async () => {
-    const pattern = `${__dirname}/../**/*.scss`;
+    const pattern = `${import.meta.dirname}/../**/*.scss`;
 
     await listDifferent(pattern, {
       banner: "",
@@ -52,7 +63,7 @@ describe("listDifferent", () => {
   });
 
   it("logs nothing and does not exit when formatted using Prettier", async () => {
-    const pattern = `${__dirname}/list-different/formatted.scss`;
+    const pattern = `${import.meta.dirname}/list-different/formatted.scss`;
 
     await listDifferent(pattern, {
       banner: "",
@@ -80,7 +91,7 @@ describe("listDifferent", () => {
   });
 
   it("logs nothing and does not exit if all files are valid", async () => {
-    const pattern = `${__dirname}/../dummy-styles/**/style.scss`;
+    const pattern = `${import.meta.dirname}/../dummy-styles/**/style.scss`;
 
     await listDifferent(pattern, {
       banner: "",
@@ -104,7 +115,7 @@ describe("listDifferent", () => {
   });
 
   it("logs not generated type file and exits with 1", async () => {
-    const pattern = `${__dirname}/list-different/no-generated.scss`;
+    const pattern = `${import.meta.dirname}/list-different/no-generated.scss`;
 
     await listDifferent(pattern, {
       banner: "",
@@ -135,7 +146,7 @@ describe("listDifferent", () => {
   });
 
   it("ignores ignored files", async () => {
-    const pattern = `${__dirname}/list-different/no-generated.scss`;
+    const pattern = `${import.meta.dirname}/list-different/no-generated.scss`;
 
     await listDifferent(pattern, {
       banner: "",

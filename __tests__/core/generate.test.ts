@@ -1,16 +1,17 @@
 import fs from "fs";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { generate } from "../../lib/core/index.js";
 
 const implementation = "sass";
 describe("generate", () => {
   beforeEach(() => {
     // Only mock the write, so the example files can still be read.
-    fs.writeFileSync = jest.fn();
-    console.log = jest.fn(); // avoid console logs showing up
+    fs.writeFileSync = vi.fn();
+    console.log = vi.fn(); // avoid console logs showing up
   });
 
   it("generates types for all files matching the pattern", async () => {
-    const pattern = `${__dirname}/../dummy-styles/**/*.scss`;
+    const pattern = `${import.meta.dirname}/../dummy-styles/**/*.scss`;
 
     await generate(pattern, {
       banner: "",

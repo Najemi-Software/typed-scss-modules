@@ -1,4 +1,5 @@
 import { AsyncCompiler } from "sass";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   disposeAllCompilers,
   getAsyncCompiler,
@@ -14,24 +15,24 @@ describe("get compilers", () => {
 
   beforeEach(() => {
     syncCompiler = {
-      compile: jest.fn(),
-      compileString: jest.fn(),
-      dispose: jest.fn(),
+      compile: vi.fn(),
+      compileString: vi.fn(),
+      dispose: vi.fn(),
     };
     asyncCompiler = {
-      compileAsync: jest.fn(),
-      compileStringAsync: jest.fn(),
-      dispose: jest.fn(),
+      compileAsync: vi.fn(),
+      compileStringAsync: vi.fn(),
+      dispose: vi.fn(),
     };
     mock = {
-      initCompiler: jest.fn().mockReturnValue(syncCompiler),
-      initAsyncCompiler: jest
+      initCompiler: vi.fn().mockReturnValue(syncCompiler),
+      initAsyncCompiler: vi
         .fn()
         .mockReturnValue(Promise.resolve(asyncCompiler)),
-      compile: jest.fn(),
-      compileString: jest.fn(),
-      compileAsync: jest.fn(),
-      compileStringAsync: jest.fn(),
+      compile: vi.fn(),
+      compileString: vi.fn(),
+      compileAsync: vi.fn(),
+      compileStringAsync: vi.fn(),
     };
   });
   afterEach(() => {

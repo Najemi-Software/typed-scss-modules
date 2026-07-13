@@ -1,4 +1,5 @@
 import { camelCase, camelCaseTransformMerge, paramCase } from "change-case";
+import { describe, expect, it } from "vitest";
 
 describe("change-case v4 consistency", () => {
   it("check deprecated camelCaseTransformMerge behaviour", () => {

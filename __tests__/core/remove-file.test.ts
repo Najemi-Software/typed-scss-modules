@@ -1,12 +1,25 @@
 import fs from "fs";
 import path from "path";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from "vitest";
 import { alerts } from "../../lib/core/alerts.js";
 import { removeSCSSTypeDefinitionFile } from "../../lib/core/remove-file.js";
 import { DEFAULT_OPTIONS } from "../../lib/load.js";
 
 describe("removeFile", () => {
-  const originalTestFile = path.resolve(__dirname, "..", "removable.scss");
-  const existingFile = path.resolve(__dirname, "..", "style.scss");
+  const originalTestFile = path.resolve(
+    import.meta.dirname,
+    "..",
+    "removable.scss"
+  );
+  const existingFile = path.resolve(import.meta.dirname, "..", "style.scss");
   const existingTypes = path.join(
     process.cwd(),
     "__tests__/removable.scss.d.ts"
@@ -16,12 +29,12 @@ describe("removeFile", () => {
     "__generated__/__tests__/removable.scss.d.ts"
   );
 
-  let existsSpy: jest.SpyInstance;
-  let unlinkSpy: jest.SpyInstance;
-  let alertsSpy: jest.SpyInstance;
+  let existsSpy: MockInstance;
+  let unlinkSpy: MockInstance;
+  let alertsSpy: MockInstance;
 
   beforeEach(() => {
-    existsSpy = jest
+    existsSpy = vi
       .spyOn(fs, "existsSync")
       .mockImplementation(
         (path) =>
@@ -30,17 +43,21 @@ describe("removeFile", () => {
           path === outputFolderExistingTypes
       );
 
-    unlinkSpy = jest.spyOn(fs, "unlinkSync").mockImplementation();
+    unlinkSpy = vi.spyOn(fs, "unlinkSync").mockImplementation(() => {});
 
-    alertsSpy = jest.spyOn(alerts, "success").mockImplementation();
+    alertsSpy = vi.spyOn(alerts, "success").mockImplementation(() => {});
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("does nothing if types file doesn't exist", () => {
-    const nonExistingFile = path.resolve(__dirname, "..", "deleted.scss");
+    const nonExistingFile = path.resolve(
+      import.meta.dirname,
+      "..",
+      "deleted.scss"
+    );
     const nonExistingTypes = path.join(
       process.cwd(),
       "__tests__/deleted.scss.d.ts"

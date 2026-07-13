@@ -1,3 +1,4 @@
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   aliasImporter,
   aliasResolver,
@@ -60,7 +61,7 @@ describe("#aliasImporter", () => {
 
 describe("#customImporters", () => {
   beforeEach(() => {
-    console.log = jest.fn(); // avoid console logs showing up
+    console.log = vi.fn(); // avoid console logs showing up
   });
 
   it("should return only an alias importer by default", () => {
@@ -75,7 +76,7 @@ describe("#customImporters", () => {
   });
 
   it("should add additional importers if passed a function", () => {
-    const importer = { findFileUrl: jest.fn() };
+    const importer = { findFileUrl: vi.fn() };
 
     const importers = customImporters({
       aliases: {},
@@ -88,9 +89,9 @@ describe("#customImporters", () => {
   });
 
   it("should add multiple importers if passed an array", () => {
-    const importer1 = jest.fn() as unknown as SASSImporter;
-    const importer2 = jest.fn() as unknown as SASSImporter;
-    const importer3 = jest.fn() as unknown as SASSImporter;
+    const importer1 = vi.fn() as unknown as SASSImporter;
+    const importer2 = vi.fn() as unknown as SASSImporter;
+    const importer3 = vi.fn() as unknown as SASSImporter;
 
     const importers = customImporters({
       aliases: {},

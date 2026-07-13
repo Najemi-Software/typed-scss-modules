@@ -1,4 +1,5 @@
 import path from "path";
+import { describe, expect, it } from "vitest";
 import { DEFAULT_OPTIONS } from "../../lib/load.js";
 import { getTypeDefinitionPath } from "../../lib/typescript/get-type-definition-path.js";
 
