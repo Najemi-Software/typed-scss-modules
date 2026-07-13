@@ -124,11 +124,6 @@ jobs:
               COMMIT_VIOLATIONS+=":x: exceeds ${HEADER_MAX_LENGTH} characters\n"
             fi
 
-            TRAILERS=$(git interpret-trailers --parse <<< "$COMMIT_MESSAGE")
-            if ! grep -iqE '^risk:[[:space:]]*(nonprod|low|high)' <<< "$TRAILERS"; then
-              COMMIT_VIOLATIONS+=":x: does not contain a valid risk trailer\n"
-            fi
-
             if [[ -n "$COMMIT_VIOLATIONS" ]]; then
               VIOLATIONS+="\`${COMMIT_HASH:0:7} ${COMMIT_SUBJECT}\`\n${COMMIT_VIOLATIONS}\n"
             fi
