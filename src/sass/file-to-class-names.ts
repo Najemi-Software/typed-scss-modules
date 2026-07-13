@@ -8,7 +8,7 @@ import { type SASSImporter, type SASSImporterOptions, type SyncMode, customImpor
 import { sourceToClassNames } from "./source-to-class-names.js";
 
 export type ClassName = string;
-interface Transformer {
+interface ITransformer {
     (className: ClassName): string;
 }
 
@@ -72,23 +72,23 @@ export const fileToClassNames = async (
         nameFormats = [nameFormatDefault];
     }
 
-    const result = !async
-        ? getSyncCompiler({ implementation, root }).compile(file, {
+    const result = async
+        ? await (
+              await getAsyncCompiler({ implementation, root })
+          ).compileAsync(file, {
               style,
               silenceDeprecations, // Suppress specified deprecations
-              importers: customImporters<"sync">({
+              importers: customImporters<"async">({
                   aliases,
                   aliasPrefixes,
                   importers,
               }),
               loadPaths: loadPaths,
           })
-        : await (
-              await getAsyncCompiler({ implementation, root })
-          ).compileAsync(file, {
+        : getSyncCompiler({ implementation, root }).compile(file, {
               style,
               silenceDeprecations, // Suppress specified deprecations
-              importers: customImporters<"async">({
+              importers: customImporters<"sync">({
                   aliases,
                   aliasPrefixes,
                   importers,
@@ -100,7 +100,7 @@ export const fileToClassNames = async (
     const transformers = nameFormats.map((item) => transformersMap[item]);
     const transformedClassNames = new Set<ClassName>([]);
     classNames.forEach((className: ClassName) => {
-        transformers.forEach((transformer: Transformer) => {
+        transformers.forEach((transformer: ITransformer) => {
             transformedClassNames.add(transformer(className));
         });
     });

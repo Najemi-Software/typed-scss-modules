@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { fileToClassNames } from "../../src/sass/file-to-class-names.js";
-import { describeAllImplementations } from "../helpers/index.js";
+import { describeAllImplementations } from "../helpers/index.test.helpers.js";
 
 const dir = "__tests__/dummy-styles";
 
@@ -206,7 +206,6 @@ describeAllImplementations((implementation) => {
             });
         });
 
-        // eslint-disable-next-line vitest/no-disabled-tests
         describe.skip("additionalData", () => {
             it("adds additional data to enable adding any necessary context", async () => {
                 const result = await fileToClassNames(

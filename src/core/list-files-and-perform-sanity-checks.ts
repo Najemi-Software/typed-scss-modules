@@ -14,7 +14,7 @@ export function listFilesAndPerformSanityChecks(pattern: string, options: Config
     // Find all the files that match the provided pattern.
     const files = globSync(pattern, { ignore: options.ignore });
 
-    if (!files || !files.length) {
+    if (!files?.length) {
         alerts.error("No files found.");
     }
 
