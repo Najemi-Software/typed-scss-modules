@@ -1,6 +1,6 @@
 # 🎁 typed-scss-modules
 
-**note:** This package (`@najemi-software/typed-scss-modules`) is a fork of [@tsjam/typed-scss-modules](https://github.com/am0wa/tsjam-typed-scss-modules) by [am0wa](https://github.com/am0wa), which in turn derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained. All credit for the original work goes to the upstream authors.
+**Note:** This package (`@najemi-software/typed-scss-modules`) is a fork of [@tsjam/typed-scss-modules](https://github.com/am0wa/tsjam-typed-scss-modules) by [am0wa](https://github.com/am0wa), which in turn derived from [typed-css-modules-sass](https://www.npmjs.com/package/typed-scss-modules) which seems no longer maintained. All credit for the original work goes to the upstream authors.
 
 [![npm version](https://img.shields.io/npm/v/@najemi-software/typed-scss-modules.svg?style=flat)](https://www.npmjs.com/package/@najemi-software/typed-scss-modules)
 
