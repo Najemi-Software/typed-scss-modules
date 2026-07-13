@@ -1,9 +1,9 @@
 import os from "os";
 
-import type { ClassName } from "lib/sass/file-to-class-names.js";
 import reserved from "reserved-words";
 
 import { alerts } from "../core/alerts.js";
+import type { ClassName } from "../sass/file-to-class-names.js";
 
 export type ExportType = "named" | "default";
 export const EXPORT_TYPES: ExportType[] = ["named", "default"];
