@@ -7,7 +7,7 @@ import {
     getSyncCompiler,
     type Implementation,
     type SyncCompiler,
-} from "../../lib/implementations/index.js";
+} from "../../src/implementations/index.js";
 
 describe("get compilers", () => {
     let mock: Partial<Implementation>;

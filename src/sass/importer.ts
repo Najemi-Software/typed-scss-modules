@@ -58,7 +58,7 @@ export const aliasImporter = <TSync extends SyncMode = "sync">({
         findFileUrl(url): PromiseOr<URL | null, TSync> {
             const alias = resolveFileUrl(url);
             if (!alias) return null;
-            return pathToFileURL(alias) as URL;
+            return pathToFileURL(alias);
         },
     };
 };

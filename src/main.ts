@@ -28,6 +28,7 @@ export const main = async (pattern: string, cliOptions: Partial<CLIOptions>) => 
         }
 
         // When the pattern provide is a directory, assume all .scss files within.
+        // eslint-disable-next-line no-param-reassign
         pattern = slash(path.resolve(pattern, "**/*.scss"));
     }
 

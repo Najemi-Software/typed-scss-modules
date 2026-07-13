@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { listFilesAndPerformSanityChecks } from "../../lib/core/list-files-and-perform-sanity-checks.js";
-import { type ConfigOptions } from "../../lib/core/types.js";
+import { listFilesAndPerformSanityChecks } from "../../src/core/list-files-and-perform-sanity-checks.js";
+import { type ConfigOptions } from "../../src/core/types.js";
 
 const options: ConfigOptions = {
     banner: "",

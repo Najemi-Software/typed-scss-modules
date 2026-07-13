@@ -34,11 +34,11 @@ export const getDefaultImplementation = (resolver?: RequireResolve): Implementat
 
     try {
         resolver ? resolver("sass") : import("sass");
-    } catch (error) {
+    } catch {
         try {
             resolver ? resolver("sass-embedded") : import("sass-embedded");
             pkg = "sass-embedded";
-        } catch (ignoreError) {
+        } catch {
             pkg = "sass";
         }
     }
@@ -63,11 +63,9 @@ export const getImplementationAsync = (
     implementation: Implementations | string = "sass",
 ): Promise<Implementation> => {
     if (implementation === "sass") {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return import("sass");
     }
     if (implementation === "sass-embedded") {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return import("sass-embedded");
     }
     throw new Error(`'${implementation}' Implementation is not supported`);
