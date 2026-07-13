@@ -152,26 +152,29 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v7
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: 22
-                  cache: "npm"
+                  cache: "pnpm"
 
             - name: Install dependencies
-              run: npm ci
+              run: pnpm install --frozen-lockfile
 
             - name: Lint
-              run: npm run lint
+              run: pnpm run lint
 
             - name: Format
-              run: npm run format
+              run: pnpm run format
 
             - name: Type check
-              run: npm run check:types
+              run: pnpm run check:types
 
             - name: Test
-              run: npm test
+              run: pnpm test
 
     publish-alpha:
         needs:
@@ -257,11 +260,14 @@ jobs:
                       ;;
                   esac
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v4
+
             - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: 22
-                  cache: "npm"
+                  cache: "pnpm"
 
             - name: Calculate next version
               id: next-version
@@ -274,7 +280,7 @@ jobs:
 
             - name: Install dependencies
               if: ${{ steps.gate.outputs.publish == 'true' }}
-              run: npm ci
+              run: pnpm install --frozen-lockfile
 
             - name: Set version
               if: ${{ steps.gate.outputs.publish == 'true' }}
@@ -298,7 +304,7 @@ jobs:
                   DIST_TAG: ${{ steps.npm-publish.outputs.dist-tag }}
               run: |
                   set -euo pipefail
-                  pkg="$(npm pkg get name | tr -d '"')"
+                  pkg="$(pnpm pkg get name | tr -d '"')"
                   gh pr comment "$PR_NUMBER" --body "📦 Published \`${pkg}@${VERSION}\` — try it with:
                   \`\`\`bash
                   npm i ${pkg}@${DIST_TAG}

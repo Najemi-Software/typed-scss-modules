@@ -49,7 +49,7 @@
         "access": "public"
     },
     "scripts": {
-        "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x esm/cli.js",
+        "build": "pnpm run clean && tsc -p tsconfig.build.json && chmod +x esm/cli.js",
         "check:types": "tsc --noEmit",
         "clean": "rm -rf ./esm",
         "format": "oxfmt --check",
@@ -113,6 +113,7 @@
     },
     "engines": {
         "node": ">=22.19",
-        "npm": ">=10.9"
-    }
+        "pnpm": ">=11"
+    },
+    "packageManager": "pnpm@11.12.0"
 }
