@@ -1,10 +1,7 @@
-import sass, {
-  AsyncCompiler as SassAsyncCompiler,
-  Compiler as SassCompiler,
-} from "sass";
+import sass, { AsyncCompiler as SassAsyncCompiler, Compiler as SassCompiler } from "sass";
 import sassEmbedded, {
-  AsyncCompiler as SassEmbeddedAsyncCompiler,
-  Compiler as SassEmbeddedCompiler,
+    AsyncCompiler as SassEmbeddedAsyncCompiler,
+    Compiler as SassEmbeddedCompiler,
 } from "sass-embedded";
 
 /**
@@ -27,23 +24,21 @@ export type AsyncCompiler = SassAsyncCompiler | SassEmbeddedAsyncCompiler;
  *
  * @param resolver DO NOT USE - this is unfortunately necessary only for testing.
  */
-export const getDefaultImplementation = (
-  resolver?: RequireResolve
-): Implementations => {
-  let pkg: Implementations = "sass";
+export const getDefaultImplementation = (resolver?: RequireResolve): Implementations => {
+    let pkg: Implementations = "sass";
 
-  try {
-    resolver ? resolver("sass") : import("sass");
-  } catch (error) {
     try {
-      resolver ? resolver("sass-embedded") : import("sass-embedded");
-      pkg = "sass-embedded";
-    } catch (ignoreError) {
-      pkg = "sass";
+        resolver ? resolver("sass") : import("sass");
+    } catch (error) {
+        try {
+            resolver ? resolver("sass-embedded") : import("sass-embedded");
+            pkg = "sass-embedded";
+        } catch (ignoreError) {
+            pkg = "sass";
+        }
     }
-  }
 
-  return pkg;
+    return pkg;
 };
 
 /**
@@ -52,23 +47,23 @@ export const getDefaultImplementation = (
  * @param implementation the desired implementation.
  */
 export const getImplementation = async (
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  implementation: Implementations | string = "sass"
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    implementation: Implementations | string = "sass",
 ): Promise<Implementation> => {
-  return getImplementationAsync(implementation);
+    return getImplementationAsync(implementation);
 };
 
 export const getImplementationAsync = (
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  implementation: Implementations | string = "sass"
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    implementation: Implementations | string = "sass",
 ): Promise<Implementation> => {
-  if (implementation === "sass") {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return import("sass");
-  }
-  if (implementation === "sass-embedded") {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return import("sass-embedded");
-  }
-  throw new Error(`'${implementation}' Implementation is not supported`);
+    if (implementation === "sass") {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return import("sass");
+    }
+    if (implementation === "sass-embedded") {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+        return import("sass-embedded");
+    }
+    throw new Error(`'${implementation}' Implementation is not supported`);
 };
