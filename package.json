@@ -61,13 +61,9 @@
     "check:types": "tsc --noEmit",
     "check:formatting": "prettier --check '**/*.{js,json,css,md,scss,tsx,ts}'",
     "check:linting": "eslint .",
-    "commit": "commit",
     "prepare": "npm run build && husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.2.0",
-    "@commitlint/config-conventional": "^20.2.0",
-    "@commitlint/prompt-cli": "^20.2.0",
     "@tsjam/eslint-config-recommended": "^0.2.4",
     "@types/node": "^22.19.3",
     "@types/reserved-words": "^0.1.0",
