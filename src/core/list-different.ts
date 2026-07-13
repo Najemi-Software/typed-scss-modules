@@ -20,7 +20,7 @@ export const listDifferent = async (pattern: string, options: ConfigOptions): Pr
 export const checkFile = async (file: string, options: ConfigOptions): Promise<boolean> => {
     try {
         const classNames = await fileToClassNames(file, options);
-        const typeDefinition = await classNamesToTypeDefinitions({
+        const typeDefinition = classNamesToTypeDefinitions({
             classNames: classNames,
             file,
             ...options,

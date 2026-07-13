@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { getDefaultImplementation } from "../../lib/implementations/implementations.js";
+import { getDefaultImplementation } from "../../src/implementations/implementations.js";
 
 describe("getDefaultImplementation", () => {
     it("returns sass by default", () => {

@@ -2,8 +2,8 @@ import path from "path";
 
 import { describe, expect, it } from "vitest";
 
-import { DEFAULT_OPTIONS } from "../../lib/load.js";
-import { getTypeDefinitionPath } from "../../lib/typescript/get-type-definition-path.js";
+import { DEFAULT_OPTIONS } from "../../src/load.js";
+import { getTypeDefinitionPath } from "../../src/typescript/get-type-definition-path.js";
 
 describe("getTypeDefinitionPath", () => {
     const cssFilePath = path.resolve(process.cwd(), "some/path/style.scss");

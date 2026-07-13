@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getImplementation } from "../../lib/implementations/implementations.js";
+import { getImplementation } from "../../src/implementations/implementations.js";
 
 describe("getImplementation", () => {
     it("returns the correct implementation when explicitly passed", async () => {

@@ -60,7 +60,7 @@ const isValidName = (className: ClassName) => {
     return true;
 };
 
-export const classNamesToTypeDefinitions = async (options: TypeDefinitionOptions): Promise<string | null> => {
+export const classNamesToTypeDefinitions = (options: TypeDefinitionOptions): string | null => {
     if (options.classNames.length) {
         const lines: string[] = [];
 

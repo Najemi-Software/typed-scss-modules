@@ -50,10 +50,7 @@ export const loadConfig = async (): Promise<Record<string, never> | ConfigOption
 
             return configModule.mod.config || configModule.mod.default || configModule.mod;
         } catch (error) {
-            alerts.error(
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                `An error occurred loading the config file "${configPath}":\n${error}`,
-            );
+            alerts.error(`An error occurred loading the config file "${configPath}":\n${error}`);
 
             return {};
         }

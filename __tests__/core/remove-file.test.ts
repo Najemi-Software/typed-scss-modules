@@ -3,9 +3,9 @@ import path from "path";
 
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 
-import { alerts } from "../../lib/core/alerts.js";
-import { removeSCSSTypeDefinitionFile } from "../../lib/core/remove-file.js";
-import { DEFAULT_OPTIONS } from "../../lib/load.js";
+import { alerts } from "../../src/core/alerts.js";
+import { removeSCSSTypeDefinitionFile } from "../../src/core/remove-file.js";
+import { DEFAULT_OPTIONS } from "../../src/load.js";
 
 describe("removeFile", () => {
     const originalTestFile = path.resolve(import.meta.dirname, "..", "removable.scss");

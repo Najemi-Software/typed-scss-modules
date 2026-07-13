@@ -72,11 +72,16 @@ export const fileToClassNames = async (
 
     const nameFormat = (typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat) as NameFormat[];
 
-    const nameFormats: NameFormatWithTransformer[] = nameFormat
-        ? nameFormat.includes("all")
-            ? NAME_FORMATS_WITH_TRANSFORMER
-            : (nameFormat as NameFormatWithTransformer[])
-        : [nameFormatDefault];
+    let nameFormats: NameFormatWithTransformer[] = [];
+    if (nameFormat) {
+        if (nameFormat.includes("all")) {
+            nameFormats = NAME_FORMATS_WITH_TRANSFORMER;
+        } else {
+            nameFormats = nameFormat as NameFormatWithTransformer[];
+        }
+    } else {
+        nameFormats = [nameFormatDefault];
+    }
 
     const result = !async
         ? getSyncCompiler({ implementation, root }).compile(file, {
