@@ -13,7 +13,7 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "declaration": true,
-        "outDir": "./dist",
+        "outDir": "./esm",
         "rootDirs": [".", "examples/custom-output-folder/__generated__"]
     }
 }
