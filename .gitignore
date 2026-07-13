@@ -1,9 +1,11 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+.github/check.sh
+.github/.bin/
 
-/node_modules
-/dist
-/.npm
-/.cache
+node_modules/
+dist/
+.npm
+.cache
+.npmrc
 
 *.tsbuildinfo
 *.log
@@ -14,16 +16,6 @@
 !.env.template
 !.env.test
 
-.idea/*
-*.iml
-
-*.tgz
-package
-
 *.scss.d.ts
 
 npm-debug.log*
-.eslintcache
-
-# Vim
-*.swp

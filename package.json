@@ -1,6 +1,6 @@
 {
   "name": "@najemi-software/typed-scss-modules",
-  "version": "10.2.0",
+  "version": "0.0.0",
   "private": false,
   "publishConfig": {
     "access": "public"
@@ -17,8 +17,12 @@
   },
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
-  "author": "am0wa <am0wa.it@gmail.com>",
+  "author": "Martin Najemi <martin@najemi.cz>",
   "contributors": [
+    {
+      "name": "am0wa",
+      "email": "am0wa.it@gmail.com"
+    },
     {
       "name": "Spencer Miskoviak",
       "email": "smiskoviak@gmail.com"
@@ -58,9 +62,7 @@
     "check:formatting": "prettier --check '**/*.{js,json,css,md,scss,tsx,ts}'",
     "check:linting": "eslint .",
     "commit": "commit",
-    "prepare": "npm run build && husky",
-    "prepublishOnly": "[ \"$CI\" = \"true\" ] || (npm run build && npm test)",
-    "semantic-release": "semantic-release"
+    "prepare": "npm run build && husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.2.0",
@@ -82,7 +84,6 @@
     "prettier-plugin-organize-imports": "^3.2.4",
     "sass": "^1.97.1",
     "sass-embedded": "^1.97.1",
-    "semantic-release": "^25.0.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
