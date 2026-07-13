@@ -62,16 +62,16 @@
         "typed-scss-modules": "node ./esm/cli.js"
     },
     "dependencies": {
-        "bundle-require": "^5.1.0",
         "chalk": "4.1.2",
         "change-case": "^4.1.2",
         "chokidar": "^3.6.0",
-        "esbuild": "^0.27.2",
         "glob": "^13.0.0",
         "joycon": "^3.1.1",
         "postcss": "^8.4.49",
         "postcss-modules": "^6.0.1",
         "reserved-words": "^0.1.2",
+        "rolldown": "^1.1.5",
+        "rolldown-require": "^2.0.20",
         "slash": "^3.0.0",
         "yargs": "^17.7.2"
     },
