@@ -20,12 +20,14 @@ describe("cli", () => {
     beforeAll(() => {
         // Ensure project is built before running CLI - Only build if esm folder does not exist
         if (!existsSync("esm")) {
-            run("npm run build");
+            run("pnpm run build");
         }
+        // npm link (not pnpm link --global): it needs no PNPM_HOME/global-bin-dir
+        // setup on runners or contributor machines.
         run("npm link");
     });
     it("should run when no files are found", () => {
-        const result = run("npm run typed-scss-modules src");
+        const result = run("pnpm run typed-scss-modules src");
 
         expect(result).toContain("No files found.");
     });
