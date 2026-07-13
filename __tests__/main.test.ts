@@ -2,12 +2,12 @@ import fs from "fs";
 import path from "path";
 
 import slash from "slash";
-import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { alerts } from "../src/core/alerts.js";
 import { main } from "../src/main.js";
 
-import { describeAllImplementations } from "./helpers/index.js";
+import { describeAllImplementations } from "./helpers/index.test.helpers.js";
 
 const dir = "__tests__/dummy-styles";
 

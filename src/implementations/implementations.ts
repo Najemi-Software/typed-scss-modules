@@ -1,8 +1,10 @@
-import sass, { AsyncCompiler as SassAsyncCompiler, Compiler as SassCompiler } from "sass";
-import sassEmbedded, {
-    AsyncCompiler as SassEmbeddedAsyncCompiler,
-    Compiler as SassEmbeddedCompiler,
+import { type AsyncCompiler as SassAsyncCompiler, type Compiler as SassCompiler } from "sass";
+import type * as sass from "sass";
+import {
+    type AsyncCompiler as SassEmbeddedAsyncCompiler,
+    type Compiler as SassEmbeddedCompiler,
 } from "sass-embedded";
+import type * as sassEmbedded from "sass-embedded";
 
 /**
  * @public
@@ -33,10 +35,18 @@ export const getDefaultImplementation = (resolver?: RequireResolve): Implementat
     let pkg: Implementations = "sass";
 
     try {
-        resolver ? resolver("sass") : import("sass");
+        if (resolver) {
+            resolver("sass");
+        } else {
+            void import("sass");
+        }
     } catch {
         try {
-            resolver ? resolver("sass-embedded") : import("sass-embedded");
+            if (resolver) {
+                resolver("sass-embedded");
+            } else {
+                void import("sass-embedded");
+            }
             pkg = "sass-embedded";
         } catch {
             pkg = "sass";
@@ -52,14 +62,12 @@ export const getDefaultImplementation = (resolver?: RequireResolve): Implementat
  * @param implementation the desired implementation.
  */
 export const getImplementation = async (
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     implementation: Implementations | string = "sass",
 ): Promise<Implementation> => {
     return getImplementationAsync(implementation);
 };
 
 export const getImplementationAsync = (
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     implementation: Implementations | string = "sass",
 ): Promise<Implementation> => {
     if (implementation === "sass") {

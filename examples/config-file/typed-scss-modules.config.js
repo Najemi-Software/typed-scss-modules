@@ -1,4 +1,3 @@
-/* eslint-env node */
 export const config = {
     aliases: { "not-real": "test-value" },
     aliasPrefixes: { "also-not-real": "test-value" },

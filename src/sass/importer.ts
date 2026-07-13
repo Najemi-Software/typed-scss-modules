@@ -24,7 +24,7 @@ export interface Aliases {
     [index: string]: string;
 }
 
-interface AliasImporterOptions {
+interface IAliasImporterOptions {
     aliases: Aliases;
     aliasPrefixes: Aliases;
 }
@@ -33,7 +33,7 @@ interface AliasImporterOptions {
  * Construct a SASS importer to create aliases for imports.
  */
 export const aliasResolver =
-    ({ aliases, aliasPrefixes }: AliasImporterOptions) =>
+    ({ aliases, aliasPrefixes }: IAliasImporterOptions) =>
     (url: string) => {
         if (url in aliases) {
             return aliases[url];
@@ -51,7 +51,7 @@ export const aliasResolver =
 export const aliasImporter = <TSync extends SyncMode = "sync">({
     aliases,
     aliasPrefixes,
-}: AliasImporterOptions): FileImporter<TSync> => {
+}: IAliasImporterOptions): FileImporter<TSync> => {
     const resolveFileUrl = aliasResolver({ aliases, aliasPrefixes });
 
     return {

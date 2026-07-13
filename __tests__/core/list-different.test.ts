@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { listDifferent } from "../../src/core/list-different.js";
 
