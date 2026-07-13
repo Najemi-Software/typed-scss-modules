@@ -12,7 +12,7 @@ export default [
         ignores: [
             "node_modules",
             "lib",
-            "dist",
+            "esm",
             ".webpack",
             "**/*.d.ts",
             "*.config.js",

@@ -29,35 +29,35 @@
         "url": "git+https://github.com/Najemi-Software/typed-scss-modules.git"
     },
     "bin": {
-        "typed-scss-modules": "./dist/cli.js"
+        "typed-scss-modules": "./esm/cli.js"
     },
     "files": [
-        "dist"
+        "esm"
     ],
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "esm/index.js",
+    "types": "esm/index.d.ts",
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.js",
-            "default": "./dist/index.js"
+            "types": "./esm/index.d.ts",
+            "import": "./esm/index.js",
+            "require": "./esm/index.js",
+            "default": "./esm/index.js"
         }
     },
     "publishConfig": {
         "access": "public"
     },
     "scripts": {
-        "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x dist/cli.js",
+        "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x esm/cli.js",
         "check:formatting": "oxfmt --check",
         "check:linting": "eslint .",
         "check:types": "tsc --noEmit",
-        "clean": "rm -rf ./dist",
+        "clean": "rm -rf ./esm",
         "prepare": "npm run build && husky",
         "test": "vitest run --silent",
         "test:watch": "vitest",
-        "typed-scss-modules": "node ./dist/cli.js"
+        "typed-scss-modules": "node ./esm/cli.js"
     },
     "dependencies": {
         "bundle-require": "^5.1.0",

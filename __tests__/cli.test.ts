@@ -5,8 +5,8 @@ import { beforeAll, describe, expect, it } from "vitest";
 
 describe("cli", () => {
     beforeAll(() => {
-        // Ensure project is built before running CLI - Only build if dist folder does not exist
-        if (!existsSync("dist")) {
+        // Ensure project is built before running CLI - Only build if esm folder does not exist
+        if (!existsSync("esm")) {
             execSync("npm run build", { stdio: "inherit" });
         }
         execSync("npm link", { stdio: "inherit" });
