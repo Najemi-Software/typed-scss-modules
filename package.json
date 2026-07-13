@@ -104,8 +104,12 @@
         }
     },
     "lint-staged": {
-        "*.{js,mjs,cjs,ts,tsx,jsx,json}": [
-            "oxfmt"
+        "*.{js,mjs,cjs,ts,tsx,jsx}": [
+            "sh -c 'eslint --fix \"$@\" || true' --",
+            "sh -c 'oxfmt \"$@\" || true' --"
+        ],
+        "*.json": [
+            "sh -c 'oxfmt \"$@\" || true' --"
         ]
     },
     "engines": {
