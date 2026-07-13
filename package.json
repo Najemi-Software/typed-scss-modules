@@ -56,7 +56,6 @@
         "format-fix": "oxfmt",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
-        "prepare": "npm run build && husky",
         "test": "vitest run --silent",
         "test:watch": "vitest",
         "typed-scss-modules": "node ./esm/cli.js"
