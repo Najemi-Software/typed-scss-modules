@@ -9,14 +9,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/lib/index.d.ts",
-      "import": "./dist/lib/index.js",
-      "require": "./dist/lib/index.js",
-      "default": "./dist/lib/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
-  "main": "dist/lib/index.js",
-  "types": "dist/lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": "Martin Najemi <martin@najemi.cz>",
   "contributors": [
     {
@@ -47,17 +47,17 @@
     "scss modules"
   ],
   "files": [
-    "dist/lib"
+    "dist"
   ],
   "bin": {
-    "typed-scss-modules": "./dist/lib/cli.js"
+    "typed-scss-modules": "./dist/cli.js"
   },
   "scripts": {
     "test": "vitest run --silent",
     "test:watch": "vitest",
-    "typed-scss-modules": "node ./dist/lib/cli.js",
+    "typed-scss-modules": "node ./dist/cli.js",
     "clean": "rm -rf ./dist",
-    "build": "npm run clean && tsc && chmod +x dist/lib/cli.js",
+    "build": "npm run clean && tsc -p tsconfig.build.json && chmod +x dist/cli.js",
     "check:types": "tsc --noEmit",
     "check:formatting": "prettier --check '**/*.{js,json,css,md,scss,tsx,ts}'",
     "check:linting": "eslint .",
