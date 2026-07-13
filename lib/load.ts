@@ -1,7 +1,7 @@
 import path from "path";
 
-import { bundleRequire } from "bundle-require";
 import JoyCon from "joycon";
+import { bundleRequire } from "rolldown-require";
 
 import { alerts } from "./core/alerts.js";
 import { type CLIOptions, type ConfigOptions } from "./core/types.js";
@@ -42,16 +42,13 @@ export const loadConfig = async (): Promise<Record<string, never> | ConfigOption
 
     if (configPath) {
         try {
-            const configModule = await bundleRequire({
+            const configModule = await bundleRequire<
+                ConfigOptions & { config?: ConfigOptions; default?: ConfigOptions }
+            >({
                 filepath: configPath,
             });
 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const config: ConfigOptions =
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-                configModule.mod.config || configModule.mod.default || configModule.mod;
-
-            return config;
+            return configModule.mod.config || configModule.mod.default || configModule.mod;
         } catch (error) {
             alerts.error(
                 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
