@@ -1,3 +1,4 @@
+import { describe } from "vitest";
 import { type Implementations, IMPLEMENTATIONS } from "../../lib/index.js";
 
 export const describeAllImplementations = (

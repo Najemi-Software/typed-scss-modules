@@ -1,7 +1,7 @@
 import jamEslint from "@tsjam/eslint-config-recommended";
-import pluginJest from "eslint-plugin-jest";
+import pluginVitest from "@vitest/eslint-plugin";
 
-console.info("Linting..🕵️", "https://eslint.org/docs/latest", pluginJest);
+console.info("Linting..🕵️", "https://eslint.org/docs/latest");
 
 /**
  * @see https://typescript-eslint.io/users/configs/#recommended
@@ -28,10 +28,9 @@ export default [
         tsconfigRootDir: import.meta.dirname,
         ecmaVersion: 2020,
         sourceType: "module",
-        globals: pluginJest.environments.globals,
       },
     },
-    plugins: { jest: pluginJest },
+    plugins: { vitest: pluginVitest },
   },
   ...jamEslint.configs.recommendedTS,
   {
@@ -45,8 +44,8 @@ export default [
     // https://typescript-eslint.io/rules/explicit-function-return-type/
     files: ["**/*.test.ts"],
     rules: {
-      "jest/no-disabled-tests": "warn",
-      "jest/consistent-test-it": ["error", { fn: "it" }],
+      "vitest/no-disabled-tests": "warn",
+      "vitest/consistent-test-it": ["error", { fn: "it" }],
     },
   },
 ];

@@ -1,22 +1,33 @@
 import fs from "fs";
 import slash from "slash";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from "vitest";
 import { alerts } from "../../lib/core/alerts.js";
 import { main } from "../../lib/main.js";
 
 describe("dart-sass", () => {
-  let writeFileSyncSpy: jest.SpyInstance;
+  let writeFileSyncSpy: MockInstance;
 
   beforeEach(() => {
     // Only mock the writes, so the example files can still be read.
-    writeFileSyncSpy = jest.spyOn(fs, "writeFileSync").mockImplementation();
+    writeFileSyncSpy = vi
+      .spyOn(fs, "writeFileSync")
+      .mockImplementation(() => {});
 
     // Avoid creating directories while running tests.
-    jest.spyOn(fs, "mkdirSync").mockImplementation();
+    vi.spyOn(fs, "mkdirSync").mockImplementation(() => undefined);
 
     // Avoid console logs showing up.
-    jest.spyOn(console, "log").mockImplementation();
+    vi.spyOn(console, "log").mockImplementation(() => {});
 
-    jest.spyOn(alerts, "error").mockImplementation();
+    vi.spyOn(alerts, "error").mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -24,7 +35,7 @@ describe("dart-sass", () => {
   });
 
   it("@import support", async () => {
-    const pattern = `${__dirname}`;
+    const pattern = `${import.meta.dirname}`;
 
     await main(pattern, {
       banner: "",
@@ -51,7 +62,7 @@ describe("dart-sass", () => {
     expect(alerts.error).not.toHaveBeenCalled();
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
 
-    const expectedDirname = slash(__dirname);
+    const expectedDirname = slash(import.meta.dirname);
 
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       `${expectedDirname}/use.scss.d.ts`,

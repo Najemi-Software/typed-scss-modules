@@ -53,8 +53,8 @@
     "typed-scss-modules": "./dist/lib/cli.js"
   },
   "scripts": {
-    "test": "jest --silent",
-    "test:watch": "jest --watch",
+    "test": "vitest run --silent",
+    "test:watch": "vitest",
     "typed-scss-modules": "node ./dist/lib/cli.js",
     "clean": "rm -rf ./dist",
     "build": "npm run clean && tsc && chmod +x dist/lib/cli.js",
@@ -68,24 +68,21 @@
     "@commitlint/cli": "^20.2.0",
     "@commitlint/config-conventional": "^20.2.0",
     "@commitlint/prompt-cli": "^20.2.0",
-    "@swc/core": "^1.15.8",
-    "@swc/jest": "^0.2.39",
     "@tsjam/eslint-config-recommended": "^0.2.4",
-    "@tsjam/swc-jest-config-recommended": "^0.1.4",
     "@types/node": "^22.19.3",
     "@types/reserved-words": "^0.1.0",
     "@types/yargs": "^17.0.35",
+    "@vitest/eslint-plugin": "^1.6.23",
     "eslint": "^9.34.0",
-    "eslint-plugin-jest": "^29.11.0",
     "husky": "^9.1.7",
-    "jest": "^30.2.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^3.2.4",
     "sass": "^1.97.1",
     "sass-embedded": "^1.97.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.10"
   },
   "peerDependencies": {
     "sass": "^1.97.1",

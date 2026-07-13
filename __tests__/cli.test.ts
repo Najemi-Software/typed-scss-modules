@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { existsSync } from "node:fs";
+import { beforeAll, describe, expect, it } from "vitest";
 
 describe("cli", () => {
   beforeAll(() => {

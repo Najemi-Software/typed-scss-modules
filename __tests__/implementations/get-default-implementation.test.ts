@@ -1,3 +1,4 @@
+import { describe, expect, it, vi } from "vitest";
 import { getDefaultImplementation } from "../../lib/implementations/implementations.js";
 
 describe("getDefaultImplementation", () => {
@@ -10,7 +11,7 @@ describe("getDefaultImplementation", () => {
   });
 
   it("returns sass if sass-embedded does not exist", () => {
-    const resolver = jest.fn((implementation) => {
+    const resolver = vi.fn((implementation) => {
       if (implementation === "sass") {
         throw new Error("Not Found");
       }
@@ -23,7 +24,7 @@ describe("getDefaultImplementation", () => {
   });
 
   it("returns sass even if both sass and sass-embedded do not exist", () => {
-    const resolver = jest.fn(() => {
+    const resolver = vi.fn(() => {
       throw new Error("Not Found");
     }) as unknown as RequireResolve;
 

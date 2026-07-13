@@ -1,6 +1,15 @@
 import fs from "fs";
 import path from "path";
 import slash from "slash";
+import {
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+  type MockInstance,
+} from "vitest";
 import { alerts } from "../lib/core/alerts.js";
 import { main } from "../lib/main.js";
 import { describeAllImplementations } from "./helpers/index.js";
@@ -9,19 +18,21 @@ const dir = "__tests__/dummy-styles";
 
 describeAllImplementations((implementation) => {
   describe("main", () => {
-    let writeFileSyncSpy: jest.SpyInstance;
+    let writeFileSyncSpy: MockInstance<typeof fs.writeFileSync>;
 
     beforeEach(() => {
       // Only mock the writes, so the example files can still be read.
-      writeFileSyncSpy = jest.spyOn(fs, "writeFileSync").mockImplementation();
+      writeFileSyncSpy = vi
+        .spyOn(fs, "writeFileSync")
+        .mockImplementation(() => {});
 
       // Avoid creating directories while running tests.
-      jest.spyOn(fs, "mkdirSync").mockImplementation();
+      vi.spyOn(fs, "mkdirSync").mockImplementation(() => undefined);
 
       // Avoid console logs showing up.
-      jest.spyOn(console, "log").mockImplementation();
+      vi.spyOn(console, "log").mockImplementation(() => {});
 
-      jest.spyOn(alerts, "error").mockImplementation();
+      vi.spyOn(alerts, "error").mockImplementation(() => {});
     });
 
     afterEach(() => {
@@ -29,7 +40,7 @@ describeAllImplementations((implementation) => {
     });
 
     it("generates types for all .scss files when the pattern is a directory", async () => {
-      const pattern = `${__dirname}/dummy-styles`;
+      const pattern = `${import.meta.dirname}/dummy-styles`;
 
       await main(pattern, {
         banner: "",
@@ -57,7 +68,9 @@ describeAllImplementations((implementation) => {
       expect(alerts.error).not.toHaveBeenCalled();
       expect(fs.writeFileSync).toHaveBeenCalledTimes(9);
 
-      const expectedDirname = slash(path.join(__dirname, "dummy-styles"));
+      const expectedDirname = slash(
+        path.join(import.meta.dirname, "dummy-styles")
+      );
 
       expect(fs.writeFileSync).toHaveBeenCalledWith(
         `${expectedDirname}/complex.scss.d.ts`,
@@ -70,7 +83,7 @@ describeAllImplementations((implementation) => {
     });
 
     it("generates types for all .scss files and ignores files that match the ignore pattern", async () => {
-      const pattern = `${__dirname}/dummy-styles`;
+      const pattern = `${import.meta.dirname}/dummy-styles`;
 
       await main(pattern, {
         banner: "",
@@ -98,7 +111,9 @@ describeAllImplementations((implementation) => {
       expect(alerts.error).not.toHaveBeenCalled();
       expect(fs.writeFileSync).toHaveBeenCalledTimes(7);
 
-      const expectedDirname = slash(path.join(__dirname, "dummy-styles"));
+      const expectedDirname = slash(
+        path.join(import.meta.dirname, "dummy-styles")
+      );
 
       expect(fs.writeFileSync).toHaveBeenCalledWith(
         `${expectedDirname}/complex.scss.d.ts`,
@@ -117,17 +132,20 @@ describeAllImplementations((implementation) => {
     });
 
     it("reads options from the configuration file", async () => {
-      const pattern = `${__dirname}/dummy-styles`;
+      const pattern = `${import.meta.dirname}/dummy-styles`;
+      // Resolve alias paths before mocking cwd: relative aliases would
+      // otherwise resolve against the mocked directory inside the compiler.
+      const absDir = path.resolve(dir);
 
-      jest.spyOn(process, "cwd").mockReturnValue(path.resolve(pattern));
+      vi.spyOn(process, "cwd").mockReturnValue(path.resolve(pattern));
 
       await main(pattern, {
         aliases: {
-          "~fancy-import": `${dir}/complex`,
-          "~another": `${dir}/style`,
+          "~fancy-import": `${absDir}/complex`,
+          "~another": `${absDir}/style`,
         },
         aliasPrefixes: {
-          "~": `${dir}/nested-styles/`,
+          "~": `${absDir}/nested-styles/`,
         },
         exportType: "default",
       });
@@ -137,8 +155,8 @@ describeAllImplementations((implementation) => {
 
       // Transform the calls into a more readable format for the snapshot.
       const contents = writeFileSyncSpy.mock.calls
-        .map(([fullFilePath, contents]: [string, string]) => ({
-          path: path.relative(__dirname, fullFilePath),
+        .map(([fullFilePath, contents]) => ({
+          path: path.relative(import.meta.dirname, fullFilePath.toString()),
           contents,
         }))
         // Sort to avoid flakey snapshot tests if call order changes.
@@ -148,7 +166,7 @@ describeAllImplementations((implementation) => {
     });
 
     it("outputs the correct files when outputFolder is passed", async () => {
-      const pattern = path.resolve(__dirname, "dummy-styles");
+      const pattern = path.resolve(import.meta.dirname, "dummy-styles");
 
       await main(pattern, {
         aliases: {
@@ -167,8 +185,8 @@ describeAllImplementations((implementation) => {
 
       // Transform the calls into a more readable format for the snapshot.
       const contents = writeFileSyncSpy.mock.calls
-        .map(([fullFilePath, contents]: [string, string]) => ({
-          path: path.relative(__dirname, fullFilePath),
+        .map(([fullFilePath, contents]) => ({
+          path: path.relative(import.meta.dirname, fullFilePath.toString()),
           contents,
         }))
         // Sort to avoid flakey snapshot tests if call order changes.
