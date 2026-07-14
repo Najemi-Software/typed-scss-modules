@@ -13,9 +13,7 @@ export type SyncMode = "sync" | "async";
  */
 export type Importer<TSync extends SyncMode = "sync"> = SassImporter<TSync> | FileImporter<TSync>;
 
-type AsyncImporter = Importer<"async">;
-
-export type { AsyncImporter as SASSAsyncImporter, Importer as SASSImporter };
+export type { Importer as SASSImporter };
 
 /**
  * @public

@@ -25,11 +25,11 @@ export const watch = (pattern: string, options: IConfigOptions): void => {
     watcher
         .on("change", (path) => {
             alerts.info(`[CHANGED] ${path}`);
-            writeFile(path, options);
+            void writeFile(path, options);
         })
         .on("add", (path) => {
             alerts.info(`[ADDED] ${path}`);
-            writeFile(path, options);
+            void writeFile(path, options);
         })
         .on("unlink", (path) => {
             alerts.info(`[REMOVED] ${path}`);
