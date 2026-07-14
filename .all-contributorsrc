@@ -101,11 +101,25 @@
             "avatar_url": "https://avatars.githubusercontent.com/u/1435960?v=4",
             "profile": "https://github.com/MichaelGregory",
             "contributions": ["bug", "code", "test"]
+        },
+        {
+            "login": "skovy",
+            "name": "Spencer Miskoviak",
+            "avatar_url": "https://avatars.githubusercontent.com/u/5247455?v=4",
+            "profile": "https://skovy.dev",
+            "contributions": ["code", "doc", "test", "ideas", "maintenance"]
+        },
+        {
+            "login": "am0wa",
+            "name": "am0wa",
+            "avatar_url": "https://avatars.githubusercontent.com/u/6359495?v=4",
+            "profile": "https://www.bakeit.dev/",
+            "contributions": ["code", "doc", "ideas", "maintenance"]
         }
     ],
     "contributorsPerLine": 7,
     "projectName": "typed-scss-modules",
-    "projectOwner": "skovy",
+    "projectOwner": "Najemi-Software",
     "repoType": "github",
     "repoHost": "https://github.com",
     "commitConvention": "angular",
