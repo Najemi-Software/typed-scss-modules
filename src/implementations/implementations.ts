@@ -62,19 +62,17 @@ export const getDefaultImplementation = (resolver?: RequireResolve): Implementat
  * @param implementation the desired implementation.
  */
 export const getImplementation = async (
-    implementation: Implementations | string = "sass",
+    implementation: Implementations = "sass",
 ): Promise<Implementation> => {
     return getImplementationAsync(implementation);
 };
 
-export const getImplementationAsync = (
-    implementation: Implementations | string = "sass",
-): Promise<Implementation> => {
+export const getImplementationAsync = (implementation: Implementations = "sass"): Promise<Implementation> => {
     if (implementation === "sass") {
         return import("sass");
     }
     if (implementation === "sass-embedded") {
         return import("sass-embedded");
     }
-    throw new Error(`'${implementation}' Implementation is not supported`);
+    throw new Error(`'${implementation as string}' Implementation is not supported`);
 };
