@@ -9,6 +9,7 @@ const CURRENT_WORKING_DIRECTORY = process.cwd();
  * file path.
  *
  * @param file the SCSS file path
+ * @param options
  */
 export const getTypeDefinitionPath = (file: string, options: IConfigOptions): string => {
     let resolvedPath = file;
