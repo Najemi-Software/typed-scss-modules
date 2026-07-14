@@ -50,17 +50,19 @@
     },
     "scripts": {
         "api-extractor": "mkdir -p api && [ -z \"${CI}\" ] && (api-extractor run -l) || (api-extractor run)",
-        "build": "pnpm run clean && tsgo -p tsconfig.build.json && chmod +x esm/cli.js && pnpm run api-extractor",
-        "check:types": "tsgo --noEmit",
+        "build": "pnpm run clean && npm-run-all -p build-check build-ts && pnpm run api-extractor",
+        "build-check": "tsgo",
+        "build-ts": "tsgo -p tsconfig.build.json && chmod +x esm/cli.js",
         "clean": "rm -rf ./esm",
         "format": "oxfmt --check",
         "format-fix": "oxfmt",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
         "prepare": "npm run build && husky",
-        "test": "vitest run --silent",
-        "test:watch": "vitest",
-        "typed-scss-modules": "node ./esm/cli.js"
+        "test": "vitest",
+        "test-once": "vitest run --silent",
+        "typed-scss-modules": "node ./esm/cli.js",
+        "validate": "pnpm run lint && pnpm run format"
     },
     "dependencies": {
         "chalk": "4.1.2",
@@ -87,6 +89,7 @@
         "eslint": "^9.34.0",
         "husky": "^9.1.7",
         "lint-staged": "^16.2.7",
+        "npm-run-all": "^4.1.5",
         "oxfmt": "^0.52.0",
         "sass": "^1.97.1",
         "sass-embedded": "^1.97.1",
