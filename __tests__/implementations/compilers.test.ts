@@ -34,7 +34,7 @@ describe("get compilers", () => {
         };
     });
     afterEach(() => {
-        disposeAllCompilers(); // cleanup after each test
+        void disposeAllCompilers(); // cleanup after each test
     });
     it("should return root by default for sass", async () => {
         const iml = {
