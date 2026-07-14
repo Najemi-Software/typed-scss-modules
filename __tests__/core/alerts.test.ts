@@ -2,6 +2,10 @@ import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } fr
 
 import { alerts, setAlertsLogLevel } from "../../src/core/alerts.js";
 
+function expectToBeCalledWithStringContaining(func: unknown, expected: string) {
+    expect(func).toHaveBeenLastCalledWith(expected);
+}
+
 describe("alerts", () => {
     let logSpy: MockInstance;
 
@@ -14,35 +18,34 @@ describe("alerts", () => {
     });
 
     const TEST_ALERT_MSG = "TEST ALERT MESSAGE";
-    const EXPECTED = expect.stringContaining(TEST_ALERT_MSG);
 
     it("should print all messages with verbose log level", () => {
         setAlertsLogLevel("verbose");
 
         alerts.error(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         //make sure each alert only calls console.log once
         expect(console.log).toHaveBeenCalledTimes(1);
 
         alerts.warn(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(2);
 
         alerts.notice(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(3);
 
         alerts.info(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(4);
 
         alerts.success(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(5);
     });
 
@@ -51,7 +54,7 @@ describe("alerts", () => {
 
         alerts.error(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(1);
 
         alerts.warn(TEST_ALERT_MSG);
@@ -68,22 +71,22 @@ describe("alerts", () => {
 
         alerts.error(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(1);
 
         alerts.notice(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(2);
 
         alerts.info(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(3);
 
         alerts.success(TEST_ALERT_MSG);
 
-        expect(console.log).toHaveBeenLastCalledWith(EXPECTED);
+        expectToBeCalledWithStringContaining(console.log, TEST_ALERT_MSG);
         expect(console.log).toHaveBeenCalledTimes(4);
 
         alerts.warn(TEST_ALERT_MSG);
