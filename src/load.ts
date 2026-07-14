@@ -4,7 +4,7 @@ import JoyCon from "joycon";
 import { bundleRequire } from "rolldown-require";
 
 import { alerts, logLevelDefault } from "./core/alerts.js";
-import { type CLIOptions, type ConfigOptions } from "./core/types.js";
+import { type ICLIOptions, type IConfigOptions } from "./core/types.js";
 import { getDefaultImplementation } from "./implementations/implementations.js";
 import { nameFormatDefault } from "./sass/file-to-class-names.js";
 import {
@@ -30,7 +30,7 @@ const joycon = new JoyCon.default();
  *  - Default export: `export default {}`
  *  - `module.exports = {}`
  */
-export const loadConfig = async (): Promise<Record<string, never> | ConfigOptions> => {
+export const loadConfig = async (): Promise<Record<string, never> | IConfigOptions> => {
     const CURRENT_WORKING_DIRECTORY = process.cwd();
 
     const configPath = await joycon.resolve(
@@ -42,7 +42,7 @@ export const loadConfig = async (): Promise<Record<string, never> | ConfigOption
     if (configPath) {
         try {
             const configModule = await bundleRequire<
-                ConfigOptions & { config?: ConfigOptions; default?: ConfigOptions }
+                IConfigOptions & { config?: IConfigOptions; default?: IConfigOptions }
             >({
                 filepath: configPath,
             });
@@ -59,7 +59,7 @@ export const loadConfig = async (): Promise<Record<string, never> | ConfigOption
 };
 
 // Default values for all options that need defaults.
-export const DEFAULT_OPTIONS: CLIOptions = {
+export const DEFAULT_OPTIONS: ICLIOptions = {
     nameFormat: [nameFormatDefault],
     implementation: getDefaultImplementation(),
     exportType: exportTypeDefault,
@@ -97,9 +97,9 @@ const removedUndefinedValues = <Obj extends Record<string, unknown>>(obj: Obj): 
  * be easily defined via the CLI so some complex options are only available in the config file.
  */
 export const mergeOptions = (
-    cliOptions: Partial<CLIOptions>,
-    configOptions: Partial<ConfigOptions>,
-): ConfigOptions => {
+    cliOptions: Partial<ICLIOptions>,
+    configOptions: Partial<IConfigOptions>,
+): IConfigOptions => {
     return {
         ...DEFAULT_OPTIONS,
         ...configOptions,
