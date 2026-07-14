@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getImplementation } from "../../src/implementations/implementations.js";
+import { type Implementations, getImplementation } from "../../src/implementations/implementations.js";
 
 describe("getImplementation", () => {
     it("returns the correct implementation when explicitly passed", async () => {
@@ -20,8 +20,8 @@ describe("getImplementation", () => {
     it("returns the correct default implementation if it is invalid", async () => {
         const fakeImplementation = "bob-sass";
 
-        await expect(() => getImplementation(fakeImplementation)).rejects.toThrow(
-            new Error(`'${fakeImplementation}' Implementation is not supported`),
-        );
+        await expect(() =>
+            getImplementation(fakeImplementation as unknown as Implementations),
+        ).rejects.toThrow(new Error(`'${fakeImplementation}' Implementation is not supported`));
     });
 });
