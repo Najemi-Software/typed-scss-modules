@@ -18,7 +18,7 @@ export const setAlertsLogLevel = (logLevel: LogLevel) => {
     currentLogLevel = logLevel;
 };
 
-type CbFunc = (...args: any[]) => void;
+type CbFunc = (...args: never[]) => void;
 type WrappedCbFunc<T extends CbFunc> = (...args: Parameters<T>) => ReturnType<T> | void;
 /**
  * wraps a callback and only calls it if currentLogLevel is undefined or included in permittedLogLevels
