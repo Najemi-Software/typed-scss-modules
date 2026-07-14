@@ -49,7 +49,8 @@
         "access": "public"
     },
     "scripts": {
-        "build": "pnpm run clean && tsgo -p tsconfig.build.json && chmod +x esm/cli.js",
+        "api-extractor": "mkdir -p api && [ -z \"${CI}\" ] && (api-extractor run -l) || (api-extractor run)",
+        "build": "pnpm run clean && tsgo -p tsconfig.build.json && chmod +x esm/cli.js && pnpm run api-extractor",
         "check:types": "tsgo --noEmit",
         "clean": "rm -rf ./esm",
         "format": "oxfmt --check",
@@ -75,6 +76,7 @@
         "yargs": "^17.7.2"
     },
     "devDependencies": {
+        "@microsoft/api-extractor": "^7.55.2",
         "@tsjam/eslint-config-recommended": "^0.2.4",
         "@types/node": "^22.19.3",
         "@types/reserved-words": "^0.1.0",

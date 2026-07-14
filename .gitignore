@@ -3,6 +3,7 @@
 
 node_modules/
 esm/
+temp/
 .npm
 .cache
 .npmrc
