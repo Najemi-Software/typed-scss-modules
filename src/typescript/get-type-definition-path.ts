@@ -1,6 +1,6 @@
 import path from "path";
 
-import type { ConfigOptions } from "../core/types.js";
+import type { IConfigOptions } from "../core/types.js";
 
 const CURRENT_WORKING_DIRECTORY = process.cwd();
 
@@ -10,7 +10,7 @@ const CURRENT_WORKING_DIRECTORY = process.cwd();
  *
  * @param file the SCSS file path
  */
-export const getTypeDefinitionPath = (file: string, options: ConfigOptions): string => {
+export const getTypeDefinitionPath = (file: string, options: IConfigOptions): string => {
     let resolvedPath = file;
 
     if (options.outputFolder) {

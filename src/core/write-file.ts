@@ -7,7 +7,7 @@ import { getTypeDefinitionPath } from "../typescript/get-type-definition-path.js
 
 import { alerts } from "./alerts.js";
 import { removeSCSSTypeDefinitionFile } from "./remove-file.js";
-import type { CLIOptions } from "./types.js";
+import type { ICLIOptions } from "./types.js";
 
 /**
  * Given a single file generate the proper types.
@@ -15,7 +15,7 @@ import type { CLIOptions } from "./types.js";
  * @param file the SCSS file to generate types for
  * @param options the CLI options
  */
-export const writeFile = async (file: string, options: CLIOptions): Promise<void> => {
+export const writeFile = async (file: string, options: ICLIOptions): Promise<void> => {
     try {
         const classNames = await fileToClassNames(file, options);
         const typeDefinition = classNamesToTypeDefinitions({
