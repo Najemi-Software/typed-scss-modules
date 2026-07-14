@@ -4,7 +4,7 @@ import { type Options } from "sass";
 import { getAsyncCompiler, getSyncCompiler } from "../implementations/compilers.js";
 import { type Implementations, getImplementation } from "../implementations/implementations.js";
 
-import { type SASSImporter, type SASSImporterOptions, type SyncMode, customImporters } from "./importer.js";
+import { type ISASSImporterOptions, type SASSImporter, type SyncMode, customImporters } from "./importer.js";
 import { sourceToClassNames } from "./source-to-class-names.js";
 
 export type ClassName = string;
@@ -35,7 +35,7 @@ export type InternalSassOptions = Pick<Options<SyncMode>, "style" | "loadPaths" 
 /**
  * @public
  */
-export interface SASSOptions extends SASSImporterOptions, InternalSassOptions {
+export interface ISASSOptions extends ISASSImporterOptions, InternalSassOptions {
     nameFormat?: string | string[];
     implementation: Implementations;
     async?: boolean;
@@ -55,7 +55,7 @@ export const fileToClassNames = async (
         aliasPrefixes,
         importers = [],
         async = false,
-    }: SASSOptions = {} as SASSOptions,
+    }: ISASSOptions = {} as ISASSOptions,
 ) => {
     const root = await getImplementation(implementation);
 

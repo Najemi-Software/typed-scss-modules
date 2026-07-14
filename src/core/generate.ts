@@ -1,6 +1,6 @@
 import { alerts } from "./alerts.js";
 import { listFilesAndPerformSanityChecks } from "./list-files-and-perform-sanity-checks.js";
-import type { ConfigOptions } from "./types.js";
+import type { IConfigOptions } from "./types.js";
 import { writeFile } from "./write-file.js";
 
 /**
@@ -9,7 +9,7 @@ import { writeFile } from "./write-file.js";
  * @param pattern the file pattern to generate type definitions for
  * @param options the CLI options
  */
-export const generate = async (pattern: string, options: ConfigOptions): Promise<void> => {
+export const generate = async (pattern: string, options: IConfigOptions): Promise<void> => {
     const files = listFilesAndPerformSanityChecks(pattern, options);
 
     if (files.length === 0) {

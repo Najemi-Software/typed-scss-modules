@@ -6,9 +6,9 @@ import { getTypeDefinitionPath } from "../typescript/get-type-definition-path.js
 
 import { alerts } from "./alerts.js";
 import { listFilesAndPerformSanityChecks } from "./list-files-and-perform-sanity-checks.js";
-import type { ConfigOptions } from "./types.js";
+import type { IConfigOptions } from "./types.js";
 
-export const listDifferent = async (pattern: string, options: ConfigOptions): Promise<void> => {
+export const listDifferent = async (pattern: string, options: IConfigOptions): Promise<void> => {
     const files = listFilesAndPerformSanityChecks(pattern, options);
 
     // Wait for all the files to be checked.
@@ -18,7 +18,7 @@ export const listDifferent = async (pattern: string, options: ConfigOptions): Pr
     }
 };
 
-export const checkFile = async (file: string, options: ConfigOptions): Promise<boolean> => {
+export const checkFile = async (file: string, options: IConfigOptions): Promise<boolean> => {
     try {
         const classNames = await fileToClassNames(file, options);
         const typeDefinition = classNamesToTypeDefinitions({

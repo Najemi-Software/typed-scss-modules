@@ -9,9 +9,4 @@ export default [
             "no-restricted-exports": "off",
         },
     },
-    {
-        rules: {
-            "@typescript-eslint/naming-convention": "off",
-        },
-    },
 ];

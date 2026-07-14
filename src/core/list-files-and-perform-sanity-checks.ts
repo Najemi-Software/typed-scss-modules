@@ -1,7 +1,7 @@
 import { globSync } from "glob";
 
 import { alerts } from "./alerts.js";
-import type { ConfigOptions } from "./types.js";
+import type { IConfigOptions } from "./types.js";
 
 /**
  * Return the files matching the given pattern and alert the user if only 0 or 1
@@ -10,7 +10,7 @@ import type { ConfigOptions } from "./types.js";
  * @param pattern the file pattern to generate type definitions for
  * @param options the CLI options
  */
-export function listFilesAndPerformSanityChecks(pattern: string, options: ConfigOptions): string[] {
+export function listFilesAndPerformSanityChecks(pattern: string, options: IConfigOptions): string[] {
     // Find all the files that match the provided pattern.
     const files = globSync(pattern, { ignore: options.ignore });
 

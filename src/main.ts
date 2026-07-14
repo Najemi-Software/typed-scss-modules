@@ -6,7 +6,7 @@ import slash from "slash";
 import { setAlertsLogLevel } from "./core/alerts.js";
 import { generate } from "./core/generate.js";
 import { listDifferent } from "./core/list-different.js";
-import { type CLIOptions } from "./core/types.js";
+import { type ICLIOptions } from "./core/types.js";
 import { watch } from "./core/watch.js";
 import { disposeAllCompilers } from "./implementations/compilers.js";
 import { loadConfig, mergeOptions } from "./load.js";
@@ -14,7 +14,7 @@ import { loadConfig, mergeOptions } from "./load.js";
 /**
  * @public
  */
-export const main = async (pattern: string, cliOptions: Partial<CLIOptions>) => {
+export const main = async (pattern: string, cliOptions: Partial<ICLIOptions>) => {
     const configOptions = await loadConfig();
     const options = mergeOptions(cliOptions, configOptions);
 

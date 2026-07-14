@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Breaking Changes
 
 - Bump node to v24
+- Rename exported interfaces to satisfy lint rule
 
 ## [13.11.0] - 2026-07-15
 
