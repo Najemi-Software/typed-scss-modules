@@ -140,4 +140,4 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
     })
     .parseSync();
 
-main(patterns[0] as string, { ...rest });
+void main(patterns[0] as string, { ...rest });

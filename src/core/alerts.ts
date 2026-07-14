@@ -18,7 +18,6 @@ export const setAlertsLogLevel = (logLevel: LogLevel) => {
     currentLogLevel = logLevel;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CbFunc = (...args: any[]) => void;
 type WrappedCbFunc<T extends CbFunc> = (...args: Parameters<T>) => ReturnType<T> | void;
 /**
@@ -45,6 +44,7 @@ const info = withLogLevelsRestriction(["verbose", "info"], (message: string) =>
     log(chalk.blueBright(message)),
 );
 const success = withLogLevelsRestriction(["verbose", "info"], (message: string) => log(chalk.green(message)));
+// eslint-disable-next-line no-console
 const log = (message: string) => console.log(message);
 
 export const alerts = { error, warn, notice, info, success };

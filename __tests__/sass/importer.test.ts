@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { aliasImporter, aliasResolver, customImporters, type SASSImporter } from "../../src/sass/importer.js";
+import { type SASSImporter, aliasImporter, aliasResolver, customImporters } from "../../src/sass/importer.js";
 
 // SASS importers receive two other arguments that this package doesn't care about.
 const contextStub = {

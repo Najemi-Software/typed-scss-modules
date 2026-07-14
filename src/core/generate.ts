@@ -17,7 +17,7 @@ export const generate = async (pattern: string, options: ConfigOptions): Promise
     }
 
     alerts.success(
-        `Found ${files.length} file${files.length === 1 ? `` : `s`}. Generating type definitions...`,
+        `Found ${files.length} file${files.length === 1 ? "" : "s"}. Generating type definitions...`,
     );
 
     // Wait for all the type definitions to be written.

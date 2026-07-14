@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { alerts } from "../../src/core/alerts.js";
 import { removeSCSSTypeDefinitionFile } from "../../src/core/remove-file.js";
