@@ -3,7 +3,7 @@ import { join } from "path";
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { classNamesToTypeDefinitions } from "../../src/typescript/index.js";
+import { classNamesToTypeDefinitions } from "../../src/typescript/class-names-to-type-definition.js";
 
 const file = join(import.meta.dirname, "test.d.ts");
 
