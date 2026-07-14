@@ -2,8 +2,8 @@ import path from "path";
 
 import { describe, expect, it, vi } from "vitest";
 
-import { DEFAULT_OPTIONS, loadConfig, mergeOptions } from "../lib/load.js";
-import { type SASSImporter } from "../lib/sass/importer.js";
+import { DEFAULT_OPTIONS, loadConfig, mergeOptions } from "../src/load.js";
+import { type SASSImporter } from "../src/sass/importer.js";
 
 const CONFIG_CASES = [
     "js-default-export",

@@ -138,5 +138,4 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
     })
     .parseSync();
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 main(patterns[0] as string, { ...rest });
