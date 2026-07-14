@@ -3,13 +3,23 @@ import { pathToFileURL } from "url";
 // import { Importer as ModernImporter } from "sass-embedded";
 import type { FileImporter, PromiseOr, Importer as SassImporter } from "sass";
 
+/**
+ * @public
+ */
 export type SyncMode = "sync" | "async";
-type Importer<TSync extends SyncMode = "sync"> = SassImporter<TSync> | FileImporter<TSync>;
+
+/**
+ * @public
+ */
+export type Importer<TSync extends SyncMode = "sync"> = SassImporter<TSync> | FileImporter<TSync>;
 
 type AsyncImporter = Importer<"async">;
 
 export type { AsyncImporter as SASSAsyncImporter, Importer as SASSImporter };
 
+/**
+ * @public
+ */
 export interface Aliases {
     [index: string]: string;
 }
@@ -53,6 +63,9 @@ export const aliasImporter = <TSync extends SyncMode = "sync">({
     };
 };
 
+/**
+ * @public
+ */
 export interface SASSImporterOptions {
     aliases?: Aliases;
     aliasPrefixes?: Aliases;

@@ -1,8 +1,14 @@
 import type { SASSOptions } from "../sass/file-to-class-names.js";
 import type { ExportType, LogLevel, QuoteType } from "../typescript/index.js";
 
-type CLIOnlyOptions = Extract<keyof SASSOptions, "importer">;
+/**
+ * @public
+ */
+export type CLIOnlyOptions = Extract<keyof SASSOptions, "importer">;
 
+/**
+ * @public
+ */
 export interface CLIOptions extends Exclude<SASSOptions, CLIOnlyOptions> {
     banner: string;
     ignore: string[];
@@ -19,4 +25,7 @@ export interface CLIOptions extends Exclude<SASSOptions, CLIOnlyOptions> {
     allowArbitraryExtensions: boolean;
 }
 
+/**
+ * @public
+ */
 export interface ConfigOptions extends CLIOptions, SASSOptions {}

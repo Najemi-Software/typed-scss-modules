@@ -38,8 +38,14 @@ const NAME_FORMATS_WITH_TRANSFORMER = Object.keys(transformersMap) as NameFormat
 export const NAME_FORMATS = [...NAME_FORMATS_WITH_TRANSFORMER, "all"] as const;
 export type NameFormat = (typeof NAME_FORMATS)[number];
 
+/**
+ * @public
+ */
 export type InternalSassOptions = Pick<Options<SyncMode>, "style" | "loadPaths" | "silenceDeprecations">;
 
+/**
+ * @public
+ */
 export interface SASSOptions extends SASSImporterOptions, InternalSassOptions {
     nameFormat?: string | string[];
     implementation: Implementations;

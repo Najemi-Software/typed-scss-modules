@@ -7,6 +7,9 @@ import { type CLIOptions, generate, listDifferent, setAlertsLogLevel, watch } fr
 import { disposeAllCompilers } from "./implementations/compilers.js";
 import { loadConfig, mergeOptions } from "./load.js";
 
+/**
+ * @public
+ */
 export const main = async (pattern: string, cliOptions: Partial<CLIOptions>) => {
     const configOptions = await loadConfig();
     const options = mergeOptions(cliOptions, configOptions);

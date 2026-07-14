@@ -5,12 +5,17 @@ import sassEmbedded, {
 } from "sass-embedded";
 
 /**
+ * @public
  * A list of all possible SASS package implementations that can be used to
  * perform the compilation and parsing of the SASS files. The expectation is
  * that they provide a nearly identical API so they can be swapped out but
- * all of the same logic can be reused.
+ * all the same logic can be reused.
  */
 export const IMPLEMENTATIONS = ["sass", "sass-embedded"] as const;
+
+/**
+ * @public
+ */
 export type Implementations = (typeof IMPLEMENTATIONS)[number];
 
 export type Implementation = typeof sass | typeof sassEmbedded;
