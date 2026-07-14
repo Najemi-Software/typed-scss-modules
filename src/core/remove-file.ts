@@ -26,6 +26,7 @@ const removeFile = (file: string): void => {
  * Given a single file remove the generated types if they exist
  *
  * @param file the SCSS file to generate types for
+ * @param options
  */
 export const removeSCSSTypeDefinitionFile = (file: string, options: IConfigOptions): void => {
     const path = getTypeDefinitionPath(file, options);
