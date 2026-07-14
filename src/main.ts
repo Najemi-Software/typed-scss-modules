@@ -3,7 +3,11 @@ import path from "path";
 
 import slash from "slash";
 
-import { type CLIOptions, generate, listDifferent, setAlertsLogLevel, watch } from "./core/index.js";
+import { setAlertsLogLevel } from "./core/alerts.js";
+import { generate } from "./core/generate.js";
+import { listDifferent } from "./core/list-different.js";
+import { type CLIOptions } from "./core/types.js";
+import { watch } from "./core/watch.js";
 import { disposeAllCompilers } from "./implementations/compilers.js";
 import { loadConfig, mergeOptions } from "./load.js";
 
