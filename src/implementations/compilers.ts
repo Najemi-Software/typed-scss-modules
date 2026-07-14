@@ -1,4 +1,4 @@
-import { alerts } from "../core/index.js";
+import { alerts } from "../core/alerts.js";
 
 import type { AsyncCompiler, Implementation, Implementations, SyncCompiler } from "./implementations.js";
 

@@ -3,7 +3,7 @@ import path from "path";
 import JoyCon from "joycon";
 import { bundleRequire } from "rolldown-require";
 
-import { alerts } from "./core/alerts.js";
+import { alerts, logLevelDefault } from "./core/alerts.js";
 import { type CLIOptions, type ConfigOptions } from "./core/types.js";
 import { getDefaultImplementation } from "./implementations/implementations.js";
 import { nameFormatDefault } from "./sass/file-to-class-names.js";
@@ -12,9 +12,8 @@ import {
     exportTypeDefault,
     exportTypeInterfaceDefault,
     exportTypeNameDefault,
-    logLevelDefault,
     quoteTypeDefault,
-} from "./typescript/index.js";
+} from "./typescript/class-names-to-type-definition.js";
 
 const VALID_CONFIG_FILES = [
     "typed-scss-modules.config.ts",

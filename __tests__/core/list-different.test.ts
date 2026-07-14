@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 
-import { listDifferent } from "../../src/core/index.js";
+import { listDifferent } from "../../src/core/list-different.js";
 
 //describeAllImplementations((implementation) => {
 describe("listDifferent", () => {
