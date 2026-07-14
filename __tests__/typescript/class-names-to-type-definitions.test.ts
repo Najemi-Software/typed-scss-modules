@@ -5,12 +5,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { classNamesToTypeDefinitions } from "../../lib/typescript/index.js";
 
-vi.mock("../../lib/prettier/can-resolve", () => ({
-    canResolvePrettier: () => false,
-}));
 const file = join(import.meta.dirname, "test.d.ts");
 
-describe("classNamesToTypeDefinitions (without Prettier)", () => {
+describe("classNamesToTypeDefinitions", () => {
     beforeEach(() => {
         console.log = vi.fn();
     });
