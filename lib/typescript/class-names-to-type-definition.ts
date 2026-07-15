@@ -5,10 +5,17 @@ import reserved from "reserved-words";
 import { alerts } from "../core/alerts.js";
 import type { ClassName } from "../sass/file-to-class-names.js";
 
+/**
+ * @public
+ */
 export type ExportType = "named" | "default";
-export const EXPORT_TYPES: ExportType[] = ["named", "default"];
 
+export const EXPORT_TYPES: ExportType[] = ["named", "default"];
+/**
+ * @public
+ */
 export type QuoteType = "single" | "double";
+
 export const QUOTE_TYPES: QuoteType[] = ["single", "double"];
 
 export interface TypeDefinitionOptions {
