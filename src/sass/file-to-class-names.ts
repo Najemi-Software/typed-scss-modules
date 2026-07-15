@@ -61,7 +61,7 @@ export const fileToClassNames = async (
 
     const nameFormat = (typeof rawNameFormat === "string" ? [rawNameFormat] : rawNameFormat) as NameFormat[];
 
-    let nameFormats: NameFormatWithTransformer[] = [];
+    let nameFormats: NameFormatWithTransformer[];
     if (nameFormat) {
         if (nameFormat.includes("all")) {
             nameFormats = NAME_FORMATS_WITH_TRANSFORMER;
