@@ -51,7 +51,7 @@ describe("listDifferent", () => {
         expect(alertSpy).toHaveBeenCalledWith(expect.stringContaining(`invalid.scss`));
     });
 
-    it("logs nothing and does not exit when formatted using Prettier", async () => {
+    it("logs nothing and does not exit when formatted", async () => {
         const pattern = `${import.meta.dirname}/list-different/formatted.scss`;
 
         await listDifferent(pattern, {

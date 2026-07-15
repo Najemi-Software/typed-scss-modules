@@ -95,9 +95,7 @@ export const classNamesToTypeDefinitions = async (options: TypeDefinitionOptions
         }
 
         if (lines.length) {
-            const typeDefinition = lines.join(`${os.EOL}`) + `${os.EOL}`;
-            // return await attemptPrettier(options.file, typeDefinition); // ignore prettier (slows down)
-            return typeDefinition;
+            return lines.join(`${os.EOL}`) + `${os.EOL}`;
         } else {
             return null;
         }

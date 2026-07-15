@@ -247,7 +247,7 @@ export type IStyles = {
 - **Default**: `"single"`
 - **Example**: `typed-scss-modules src --exportType default --quoteType double`
 
-Specify a quote type to match your TypeScript configuration. Only default exports are affected by this command. This example will wrap class names with double quotes ("). If [Prettier](https://prettier.io) is installed and configured in the project, it will be used and is likely to override the effect of this setting.
+Specify a quote type to match your TypeScript configuration. Only default exports are affected by this command. This example will wrap class names with double quotes ("). If a formatter (e.g. Prettier/Oxfmt) is installed and configured in the project, it will be used and is likely to override the effect of this setting.
 
 ### `--updateStaleOnly` (`-u`)
 
