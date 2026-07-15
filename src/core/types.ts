@@ -1,6 +1,7 @@
-import type { LogLevel } from "../core/alerts.js";
 import type { ISASSOptions } from "../sass/file-to-class-names.js";
 import type { ExportType, QuoteType } from "../typescript/class-names-to-type-definition.js";
+
+import type { LogLevel } from "./alerts.js";
 
 /**
  * @public
