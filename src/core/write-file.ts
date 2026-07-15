@@ -17,7 +17,7 @@ import type { CLIOptions } from "./types.js";
 export const writeFile = async (file: string, options: CLIOptions): Promise<void> => {
     try {
         const classNames = await fileToClassNames(file, options);
-        const typeDefinition = await classNamesToTypeDefinitions({
+        const typeDefinition = classNamesToTypeDefinitions({
             classNames,
             file,
             ...options,

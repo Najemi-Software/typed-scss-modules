@@ -2,7 +2,7 @@ import fs from "fs";
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { generate } from "../../lib/core/index.js";
+import { generate } from "../../src/core/index.js";
 
 const implementation = "sass";
 describe("generate", () => {

@@ -3,7 +3,7 @@ import path from "path";
 
 import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 
-import { writeFile } from "../../lib/core/write-file.js";
+import { writeFile } from "../../src/core/write-file.js";
 import { describeAllImplementations } from "../helpers/index.js";
 
 describeAllImplementations((implementation) => {

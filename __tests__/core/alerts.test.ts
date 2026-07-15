@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
 
-import { alerts, setAlertsLogLevel } from "../../lib/core/index.js";
+import { alerts, setAlertsLogLevel } from "../../src/core/index.js";
 
 describe("alerts", () => {
     let logSpy: MockInstance;
