@@ -4,6 +4,9 @@
 
 [![npm version](https://img.shields.io/npm/v/@najemi-software/typed-scss-modules.svg?style=flat)](https://www.npmjs.com/package/@najemi-software/typed-scss-modules)
 
+> [!IMPORTANT]
+> **Versioning note:** Versions `10.11.2` through `11.7.0` were unpublished from npm (and scrubbed from git) due to a publishing mishap. Since unpublished version numbers cannot be reused, the next release jumps straight to **v12**. The jump from `10.11.1` to `12.0.0` contains **no breaking changes** — it is purely a version-number skip. Changes made in the unpublished/scrubbed versions will be released in future versions.
+
 Generate TypeScript definitions (`.d.ts`) files for CSS Modules that are written in SCSS (`.scss`). Check out [this post to learn more](https://skovy.dev/generating-typescript-definitions-for-css-modules-using-sass/) about the rationale and inspiration behind this package.
 
 ![Example](/docs/typed-scss-modules-example.gif)
