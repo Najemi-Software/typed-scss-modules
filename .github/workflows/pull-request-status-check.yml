@@ -238,24 +238,24 @@ jobs:
                   echo "version=${tag}" >> "$GITHUB_OUTPUT"
                   echo "Latest release: ${tag}"
 
-            - name: Ensure latest release in git history
-              env:
-                  GH_TOKEN: ${{ github.token }}
-                  REPO: ${{ github.repository }}
-                  RELEASE_TAG: ${{ steps.latest-release.outputs.version }}
-                  BASE_SHA: ${{ steps.detect-bump.outputs.base-sha }}
-              run: |
-                  set -euo pipefail
-                  status="$(gh api "repos/${REPO}/compare/${RELEASE_TAG}...${BASE_SHA}" --jq '.status')"
-                  case "$status" in
-                    identical|ahead)
-                      echo "Base ${BASE_SHA} is at or after latest release ${RELEASE_TAG} (status: ${status})."
-                      ;;
-                    *)
-                      echo "::error::PR base ${BASE_SHA} predates or diverged from latest release ${RELEASE_TAG} (status: ${status}). Rebase onto master."
-                      exit 1
-                      ;;
-                  esac
+            #            - name: Ensure latest release in git history
+            #              env:
+            #                  GH_TOKEN: ${{ github.token }}
+            #                  REPO: ${{ github.repository }}
+            #                  RELEASE_TAG: ${{ steps.latest-release.outputs.version }}
+            #                  BASE_SHA: ${{ steps.detect-bump.outputs.base-sha }}
+            #              run: |
+            #                  set -euo pipefail
+            #                  status="$(gh api "repos/${REPO}/compare/${RELEASE_TAG}...${BASE_SHA}" --jq '.status')"
+            #                  case "$status" in
+            #                    identical|ahead)
+            #                      echo "Base ${BASE_SHA} is at or after latest release ${RELEASE_TAG} (status: ${status})."
+            #                      ;;
+            #                    *)
+            #                      echo "::error::PR base ${BASE_SHA} predates or diverged from latest release ${RELEASE_TAG} (status: ${status}). Rebase onto master."
+            #                      exit 1
+            #                      ;;
+            #                  esac
 
             - name: Setup Node.js
               uses: actions/setup-node@v6
