@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
     get-pull-request-info:
+        name: Get PR info
         runs-on: ubuntu-latest
         permissions:
             contents: read
@@ -34,12 +35,13 @@ jobs:
                   echo "PR for ${SHA}: ${pr_number:-<none>}"
 
     publish:
+        name: Publish
         needs:
             - get-pull-request-info
         if: ${{ needs.get-pull-request-info.outputs.pr-number != '' }}
         runs-on: ubuntu-latest
         permissions:
-            contents: write # npm-publish creates the release tag + GitHub release
+            contents: write
             pull-requests: read
         steps:
             - name: Checkout merge commit
@@ -48,12 +50,12 @@ jobs:
                   ref: ${{ github.sha }}
 
             - name: Setup Node.js
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 22
                   cache: "npm"
 
-            - name: Install dependencies
+            - name: Install dependencies and build the package (implicitly via the "prepare" script)
               run: npm ci
 
             - name: Detect bump
@@ -75,25 +77,18 @@ jobs:
 
             - name: Calculate next version
               id: next-version
-              if: ${{ steps.detect-bump.outputs.bump != 'none' }}
               uses: ./.github/actions/versioning/calculate-next-version
               with:
                   latest-version: ${{ steps.latest-release.outputs.version }}
                   bump: ${{ steps.detect-bump.outputs.bump }}
 
             - name: Set version
-              if: ${{ steps.detect-bump.outputs.bump != 'none' }}
               uses: ./.github/actions/versioning/set-version
               with:
                   version: ${{ steps.next-version.outputs.version }}
 
             - name: Publish to npm
               id: npm-publish
-              if: ${{ steps.detect-bump.outputs.bump != 'none' }}
               uses: ./.github/actions/publishing/npm-publish
               with:
                   npm-token: ${{ secrets.NPM_TOKEN }}
-
-            - name: No release for this merge
-              if: ${{ steps.detect-bump.outputs.bump == 'none' }}
-              run: echo "Bump is 'none' — nothing to release for this merge."
