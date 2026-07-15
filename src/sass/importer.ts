@@ -20,13 +20,13 @@ export type { AsyncImporter as SASSAsyncImporter, Importer as SASSImporter };
 /**
  * @public
  */
-export interface Aliases {
+export interface IAliases {
     [index: string]: string;
 }
 
 interface IAliasImporterOptions {
-    aliases: Aliases;
-    aliasPrefixes: Aliases;
+    aliases: IAliases;
+    aliasPrefixes: IAliases;
 }
 
 /**
@@ -66,9 +66,9 @@ export const aliasImporter = <TSync extends SyncMode = "sync">({
 /**
  * @public
  */
-export interface SASSImporterOptions {
-    aliases?: Aliases;
-    aliasPrefixes?: Aliases;
+export interface ISASSImporterOptions {
+    aliases?: IAliases;
+    aliasPrefixes?: IAliases;
     importers?: Importer[];
 }
 
@@ -82,7 +82,7 @@ export const customImporters = <TSync extends SyncMode = "sync">({
     aliases = {},
     aliasPrefixes = {},
     importers = [],
-}: SASSImporterOptions): Importer<TSync>[] => {
+}: ISASSImporterOptions): Importer<TSync>[] => {
     const bundled: Importer<TSync>[] = [aliasImporter<TSync>({ aliases, aliasPrefixes })];
     return bundled.concat(importers);
 };

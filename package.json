@@ -83,7 +83,7 @@
         "@gooddata/eslint-config": "^11.46.0",
         "@gooddata/oxlint-config": "^11.46.0",
         "@microsoft/api-extractor": "^7.55.2",
-        "@types/node": "^22.19.3",
+        "@types/node": "^24.13.3",
         "@types/reserved-words": "^0.1.0",
         "@types/yargs": "^17.0.35",
         "@typescript-eslint/eslint-plugin": "8.58.0",
@@ -133,7 +133,7 @@
         ]
     },
     "engines": {
-        "node": ">=22.19",
+        "node": ">=24.12",
         "pnpm": ">=11"
     },
     "packageManager": "pnpm@11.12.0"

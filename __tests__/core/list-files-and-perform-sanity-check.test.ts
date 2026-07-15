@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { listFilesAndPerformSanityChecks } from "../../src/core/list-files-and-perform-sanity-checks.js";
-import { type ConfigOptions } from "../../src/core/types.js";
+import { type IConfigOptions } from "../../src/core/types.js";
 
-const options: ConfigOptions = {
+const options: IConfigOptions = {
     banner: "",
     watch: false,
     ignoreInitial: false,

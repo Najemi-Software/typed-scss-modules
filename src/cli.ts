@@ -6,7 +6,7 @@ import { LOG_LEVELS } from "./core/alerts.js";
 import { IMPLEMENTATIONS } from "./implementations/implementations.js";
 import { main } from "./main.js";
 import { NAME_FORMATS } from "./sass/file-to-class-names.js";
-import { type Aliases } from "./sass/importer.js";
+import { type IAliases } from "./sass/importer.js";
 import { EXPORT_TYPES, QUOTE_TYPES } from "./typescript/class-names-to-type-definition.js";
 
 /*
@@ -44,12 +44,12 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
         describe: "Whether output is compressed or expanded.",
     })
     .option("aliases", {
-        coerce: (obj: Aliases): Aliases => obj,
+        coerce: (obj: IAliases): IAliases => obj,
         alias: "a",
         describe: "Alias any import to any other value.",
     })
     .option("aliasPrefixes", {
-        coerce: (obj: Aliases): Aliases => obj,
+        coerce: (obj: IAliases): IAliases => obj,
         alias: "p",
         describe: "A prefix for any import to rewrite to another value.",
     })

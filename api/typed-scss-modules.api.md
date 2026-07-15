@@ -9,16 +9,19 @@ import type { Importer as Importer_2 } from 'sass';
 import { Options } from 'sass';
 
 // @public (undocumented)
-export interface Aliases {
+export type CLIOnlyOptions = Extract<keyof ISASSOptions, "importer">;
+
+// @public (undocumented)
+export type ExportType = "named" | "default";
+
+// @public (undocumented)
+export interface IAliases {
     // (undocumented)
     [index: string]: string;
 }
 
 // @public (undocumented)
-export type CLIOnlyOptions = Extract<keyof SASSOptions, "importer">;
-
-// @public (undocumented)
-export interface CLIOptions extends Exclude<SASSOptions, CLIOnlyOptions> {
+export interface ICLIOptions extends Exclude<ISASSOptions, CLIOnlyOptions> {
     // (undocumented)
     allowArbitraryExtensions: boolean;
     // (undocumented)
@@ -48,11 +51,8 @@ export interface CLIOptions extends Exclude<SASSOptions, CLIOnlyOptions> {
 }
 
 // @public (undocumented)
-export interface ConfigOptions extends CLIOptions, SASSOptions {
+export interface IConfigOptions extends ICLIOptions, ISASSOptions {
 }
-
-// @public (undocumented)
-export type ExportType = "named" | "default";
 
 // @public
 export const IMPLEMENTATIONS: readonly ["sass", "sass-embedded"];
@@ -67,30 +67,17 @@ export type Importer<TSync extends SyncMode = "sync"> = Importer_2<TSync> | File
 export type InternalSassOptions = Pick<Options<SyncMode>, "style" | "loadPaths" | "silenceDeprecations">;
 
 // @public (undocumented)
-export const LOG_LEVELS: readonly ["verbose", "error", "info", "silent"];
-
-// @public (undocumented)
-export type LogLevel = (typeof LOG_LEVELS)[number];
-
-// @public (undocumented)
-const main: (pattern: string, cliOptions: Partial<CLIOptions>) => Promise<void>;
-export default main;
-
-// @public (undocumented)
-export type QuoteType = "single" | "double";
-
-// @public (undocumented)
-export interface SASSImporterOptions {
+export interface ISASSImporterOptions {
     // (undocumented)
-    aliases?: Aliases;
+    aliases?: IAliases;
     // (undocumented)
-    aliasPrefixes?: Aliases;
+    aliasPrefixes?: IAliases;
     // (undocumented)
     importers?: Importer[];
 }
 
 // @public (undocumented)
-export interface SASSOptions extends SASSImporterOptions, InternalSassOptions {
+export interface ISASSOptions extends ISASSImporterOptions, InternalSassOptions {
     // (undocumented)
     async?: boolean;
     // (undocumented)
@@ -100,6 +87,19 @@ export interface SASSOptions extends SASSImporterOptions, InternalSassOptions {
     // (undocumented)
     nameFormat?: string | string[];
 }
+
+// @public (undocumented)
+export const LOG_LEVELS: readonly ["verbose", "error", "info", "silent"];
+
+// @public (undocumented)
+export type LogLevel = (typeof LOG_LEVELS)[number];
+
+// @public (undocumented)
+const main: (pattern: string, cliOptions: Partial<ICLIOptions>) => Promise<void>;
+export default main;
+
+// @public (undocumented)
+export type QuoteType = "single" | "double";
 
 // @public (undocumented)
 export type SyncMode = "sync" | "async";
