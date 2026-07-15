@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [13.10.0] - 2026-07-15
+
+### Changed
+
+- Delete embedded tsconfig.json files
+
 ## [13.9.0] - 2026-07-15
 
 ### Changed
@@ -574,6 +580,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[13.10.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v13.9.0...v13.10.0
 [13.9.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v13.8.0...v13.9.0
 [13.8.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v13.7.0...v13.8.0
 [13.7.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v13.6.0...v13.7.0
