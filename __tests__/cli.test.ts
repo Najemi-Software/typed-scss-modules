@@ -25,7 +25,7 @@ describe("cli", () => {
         // npm link (not pnpm link --global): it needs no PNPM_HOME/global-bin-dir
         // setup on runners or contributor machines.
         run("npm link");
-    });
+    }, 15000);
     it("should run when no files are found", () => {
         const result = run("pnpm run typed-scss-modules src");
 

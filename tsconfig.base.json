@@ -1,0 +1,13 @@
+{
+    "extends": "./tsconfig.strict.json",
+    "exclude": ["**/node_modules", "**/esm"],
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": ["ES2022", "dom"],
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "incremental": false,
+        "declaration": true,
+        "declarationMap": true
+    }
+}
