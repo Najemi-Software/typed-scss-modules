@@ -1,15 +1,15 @@
 name: "NPM Publish"
 description: >
     Publishes the checked-out package to npm, idempotently. Reads the version
-    from package.json and requires both package-lock.json version fields to
-    match it. Stable versions (X.Y.Z) publish to dist-tag "latest", then get
+    from package.json. Stable versions (X.Y.Z) publish to dist-tag "latest", then get
     a git tag v<version> at HEAD and a GitHub release. Alpha versions
     (X.Y.Z-alpha.<pr>.<n>) publish to dist-tag "alpha-<pr>" and get no tag or
     release. If the version is already on the registry: alpha -> everything
     is skipped; stable -> the publish is skipped but a missing tag/release is
     still created (repairs a previous run that failed after publishing).
-    Assumes checkout, node setup and npm ci have run (npm ci builds dist via
-    the prepare script) and the version was stamped (set-version).
+    Assumes checkout, node/pnpm setup and pnpm install have run (the install
+    builds esm via the prepare script) and the version was stamped
+    (set-version). Registry operations intentionally use the npm CLI.
 
 inputs:
     npm-token:
@@ -46,12 +46,6 @@ runs:
 
               pkg_name="$(npm pkg get name | tr -d '"')"
               version="$(npm pkg get version | tr -d '"')"
-              lock_root="$(jq -r '.version' package-lock.json)"
-              lock_pkg="$(jq -r '.packages[""].version' package-lock.json)"
-              if [ "$version" != "$lock_root" ] || [ "$version" != "$lock_pkg" ]; then
-                echo "::error::Version fields disagree: package.json=${version}, lock=${lock_root}, lock packages.\"\"=${lock_pkg}."
-                exit 1
-              fi
 
               if [ "$version" = "0.0.0" ] || grep -qE '^0\.0\.0-' <<< "$version"; then
                 echo "::error::Version is still the 0.0.0 source placeholder; run set-version before publishing."
