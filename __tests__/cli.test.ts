@@ -20,7 +20,7 @@ describe("cli", () => {
     beforeAll(() => {
         // Ensure project is built before running CLI - Only build if esm folder does not exist
         if (!existsSync("esm")) {
-            run("pnpm run build");
+            run("pnpm run clean && pnpm run build-ts");
         }
         // npm link (not pnpm link --global): it needs no PNPM_HOME/global-bin-dir
         // setup on runners or contributor machines.
