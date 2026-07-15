@@ -1,23 +1,12 @@
 import { camelCase, camelCaseTransformMerge, paramCase, snakeCase } from "change-case";
 import { type Options } from "sass";
 
-import {
-    type Implementations,
-    getAsyncCompiler,
-    getImplementation,
-    getSyncCompiler,
-} from "../implementations/index.js";
+import { getAsyncCompiler, getSyncCompiler } from "../implementations/compilers.js";
+import { type Implementations, getImplementation } from "../implementations/implementations.js";
 
-import {
-    type Aliases,
-    type SASSImporter,
-    type SASSImporterOptions,
-    type SyncMode,
-    customImporters,
-} from "./importer.js";
+import { type SASSImporter, type SASSImporterOptions, type SyncMode, customImporters } from "./importer.js";
 import { sourceToClassNames } from "./source-to-class-names.js";
 
-export type { Aliases };
 export type ClassName = string;
 interface Transformer {
     (className: ClassName): string;

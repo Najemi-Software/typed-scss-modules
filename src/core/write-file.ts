@@ -2,7 +2,8 @@ import fs from "fs";
 import path from "path";
 
 import { fileToClassNames } from "../sass/file-to-class-names.js";
-import { classNamesToTypeDefinitions, getTypeDefinitionPath } from "../typescript/index.js";
+import { classNamesToTypeDefinitions } from "../typescript/class-names-to-type-definition.js";
+import { getTypeDefinitionPath } from "../typescript/get-type-definition-path.js";
 
 import { alerts } from "./alerts.js";
 import { removeSCSSTypeDefinitionFile } from "./remove-file.js";

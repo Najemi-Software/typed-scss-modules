@@ -5,9 +5,8 @@ import {
     disposeAllCompilers,
     getAsyncCompiler,
     getSyncCompiler,
-    type Implementation,
-    type SyncCompiler,
-} from "../../src/implementations/index.js";
+} from "../../src/implementations/compilers.js";
+import { type Implementation, type SyncCompiler } from "../../src/implementations/implementations.js";
 
 describe("get compilers", () => {
     let mock: Partial<Implementation>;

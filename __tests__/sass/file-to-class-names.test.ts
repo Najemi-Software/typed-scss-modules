@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { fileToClassNames } from "../../src/sass/index.js";
+import { fileToClassNames } from "../../src/sass/file-to-class-names.js";
 import { describeAllImplementations } from "../helpers/index.js";
 
 const dir = "__tests__/dummy-styles";
