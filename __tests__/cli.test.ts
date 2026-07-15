@@ -3,16 +3,29 @@ import { existsSync } from "node:fs";
 
 import { beforeAll, describe, expect, it } from "vitest";
 
+// Capture stdout and stderr instead of leaking them into the vitest output;
+// on failure, attach both to the error so they show up in the test report.
+const run = (command: string): string => {
+    try {
+        return execSync(command, { stdio: ["ignore", "pipe", "pipe"] }).toString();
+    } catch (error) {
+        const { stdout, stderr } = error as { stdout?: Buffer; stderr?: Buffer };
+        throw new Error(
+            `Command failed: ${command}\n--- stdout ---\n${stdout?.toString() ?? ""}\n--- stderr ---\n${stderr?.toString() ?? ""}`,
+        );
+    }
+};
+
 describe("cli", () => {
     beforeAll(() => {
         // Ensure project is built before running CLI - Only build if esm folder does not exist
         if (!existsSync("esm")) {
-            execSync("npm run build", { stdio: "inherit" });
+            run("npm run build");
         }
-        execSync("npm link", { stdio: "inherit" });
+        run("npm link");
     });
     it("should run when no files are found", () => {
-        const result = execSync("npm run typed-scss-modules src").toString();
+        const result = run("npm run typed-scss-modules src");
 
         expect(result).toContain("No files found.");
     });
@@ -20,17 +33,17 @@ describe("cli", () => {
     describe("examples", () => {
         it("should run the basic example without errors", () => {
             //  npm exec typed-scss-modules "examples/default-export/**/*.scss" -- --exportType default --nameFormat kebab --banner
-            const result = execSync(
+            const result = run(
                 `typed-scss-modules "examples/basic/**/*.scss" --includePaths examples/basic/core --aliases.~alias variables --banner '// example banner'`,
-            ).toString();
+            );
 
             expect(result).toContain("Found 4 files. Generating type definitions...");
         });
 
         it("should run the default-export example without errors", () => {
-            const result = execSync(
+            const result = run(
                 `typed-scss-modules "examples/default-export/**/*.scss" --exportType default --nameFormat kebab --banner '// example banner'`,
-            ).toString();
+            );
 
             expect(result).toContain("Found 1 file. Generating type definitions...");
         });
