@@ -18,7 +18,7 @@ export type QuoteType = "single" | "double";
 
 export const QUOTE_TYPES: QuoteType[] = ["single", "double"];
 
-export interface TypeDefinitionOptions {
+export interface ITypeDefinitionOptions {
     banner: string;
     classNames: ClassName[];
     file: string;
@@ -60,7 +60,7 @@ const isValidName = (className: ClassName) => {
     return true;
 };
 
-export const classNamesToTypeDefinitions = (options: TypeDefinitionOptions): string | null => {
+export const classNamesToTypeDefinitions = (options: ITypeDefinitionOptions): string | null => {
     if (options.classNames.length) {
         const lines: string[] = [];
 

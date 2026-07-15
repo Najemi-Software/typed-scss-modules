@@ -1,10 +1,10 @@
 import fs, { type PathOrFileDescriptor } from "fs";
 import path from "path";
 
-import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from "vitest";
+import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { writeFile } from "../../src/core/write-file.js";
-import { describeAllImplementations } from "../helpers/index.js";
+import { describeAllImplementations } from "../helpers/index.test.helpers.js";
 
 describeAllImplementations((implementation) => {
     describe("writeFile", () => {

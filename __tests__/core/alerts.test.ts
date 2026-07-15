@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from "vitest";
+import { type MockInstance, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { alerts, setAlertsLogLevel } from "../../src/core/alerts.js";
 
@@ -14,7 +14,6 @@ describe("alerts", () => {
     });
 
     const TEST_ALERT_MSG = "TEST ALERT MESSAGE";
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const EXPECTED = expect.stringContaining(TEST_ALERT_MSG);
 
     it("should print all messages with verbose log level", () => {

@@ -1,4 +1,4 @@
-import { AsyncCompiler } from "sass";
+import { type AsyncCompiler } from "sass";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
@@ -71,7 +71,6 @@ describe("get compilers", () => {
         await getAsyncCompiler(iml);
         await disposeAllCompilers();
         expect(syncCompiler.dispose).toHaveBeenCalled();
-        // eslint-disable-next-line @typescript-eslint/unbound-method
         expect(asyncCompiler.dispose).toHaveBeenCalled();
     });
 });
