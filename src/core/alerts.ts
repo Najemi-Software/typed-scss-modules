@@ -44,7 +44,7 @@ const info = withLogLevelsRestriction(["verbose", "info"], (message: string) =>
     log(chalk.blueBright(message)),
 );
 const success = withLogLevelsRestriction(["verbose", "info"], (message: string) => log(chalk.green(message)));
-// eslint-disable-next-line no-console
+// oxlint-disable-next-line eslint-js/no-console
 const log = (message: string) => console.log(message);
 
 export const alerts = { error, warn, notice, info, success };
