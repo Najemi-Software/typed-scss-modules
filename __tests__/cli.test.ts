@@ -36,7 +36,7 @@ describe("cli", () => {
         it("should run the basic example without errors", () => {
             //  npm exec typed-scss-modules "examples/default-export/**/*.scss" -- --exportType default --nameFormat kebab --banner
             const result = run(
-                `typed-scss-modules "examples/basic/**/*.scss" --includePaths examples/basic/core --aliases.~alias variables --banner '// example banner'`,
+                `typed-scss-modules "examples/basic/**/*.scss" --loadPaths examples/basic/core --aliases.~alias variables --banner '// example banner'`,
             );
 
             expect(result).toContain("Found 4 files. Generating type definitions...");

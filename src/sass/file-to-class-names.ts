@@ -82,6 +82,7 @@ export const fileToClassNames = async (
                   aliases,
                   aliasPrefixes,
                   importers,
+                  loadPaths,
               }),
               loadPaths: loadPaths,
           })
@@ -92,6 +93,7 @@ export const fileToClassNames = async (
                   aliases,
                   aliasPrefixes,
                   importers,
+                  loadPaths,
               }),
               loadPaths: loadPaths,
           });
