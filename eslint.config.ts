@@ -1,12 +1,1 @@
-import config from "@gooddata/eslint-config/oxlint-esm-vitest";
-
-export default [
-    ...config,
-    {
-        files: ["__tests__/**/*", "examples/**/*"],
-        rules: {
-            "no-console": "off",
-            "no-restricted-exports": "off",
-        },
-    },
-];
+export { default } from "@gooddata/eslint-config/oxlint-esm-vitest";

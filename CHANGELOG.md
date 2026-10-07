@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [14.11.0] - 2026-10-07
+
+### Changed
+
+- Upgrade `@gooddata/eslint-config` and `@gooddata/oxlint-config` to v11.60.0, and align the oxlint dev dependencies with the new peer dependency requirements (`oxlint` v1.83.0, `oxlint-tsgolint` v7.0.2001, new `oxlint-plugin-eslint` v1.82.0)
+- Remove unused dev dependency `@vitest/eslint-plugin`
+
 ## [14.10.0] - 2026-10-07
 
 ### Changed
@@ -666,6 +673,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[14.11.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.10.0...v14.11.0
 [14.10.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.9.0...v14.10.0
 [14.9.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.8.0...v14.9.0
 [14.8.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.7.0...v14.8.0
