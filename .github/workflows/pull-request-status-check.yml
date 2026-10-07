@@ -31,7 +31,7 @@ jobs:
 
                       // Iterate over reviews and dismiss approvals
                       for (const review of reviews.data) {
-                        if (review.state === "APPROVED" && review.user.login !== "yenkins-admin") {
+                        if (review.state === "APPROVED") {
                           await github.rest.pulls.dismissReview({
                             owner: context.repo.owner,
                             repo: context.repo.repo,
