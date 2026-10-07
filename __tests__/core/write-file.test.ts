@@ -109,6 +109,39 @@ describeAllImplementations((implementation) => {
             );
         });
 
+        describe("when the file fails to compile", () => {
+            afterEach(() => {
+                process.exitCode = undefined;
+            });
+
+            it("logs the error and sets a failing exit code", async () => {
+                const testFile = path.resolve(import.meta.dirname, "..", "dummy-styles/missing.scss");
+
+                await writeFile(testFile, {
+                    banner: "",
+                    watch: false,
+                    ignoreInitial: false,
+                    exportType: "named",
+                    exportTypeName: "ClassNames",
+                    exportTypeInterface: "Styles",
+                    listDifferent: false,
+                    ignore: [],
+                    implementation,
+                    quoteType: "single",
+                    updateStaleOnly: false,
+                    logLevel: "verbose",
+                    outputFolder: null,
+                    allowArbitraryExtensions: false,
+                });
+
+                expect(fs.writeFileSync).not.toHaveBeenCalled();
+                expect(console.log).toHaveBeenCalledWith(
+                    expect.stringContaining(`Write File '${testFile}' error:`),
+                );
+                expect(process.exitCode).toBe(1);
+            });
+        });
+
         describe("when a file already exists with type definitions", () => {
             const testFile = path.resolve(import.meta.dirname, "..", "dummy-styles/empty.scss");
             const existingTypes = path.join(process.cwd(), "__tests__/dummy-styles/empty.scss.d.ts");
