@@ -22,7 +22,7 @@ const { _: patterns, ...rest } = yargs(hideBin(process.argv))
         "Watch all .scss files at any level in the src directory that are added or changed",
     )
     .example(
-        "$0 src/**/*.scss --includePaths src/core src/variables",
+        "$0 src/**/*.scss --loadPaths src/core src/variables",
         'Search the "core" and "variables" directory when resolving imports',
     )
     .example("$0 src/**/*.scss --aliases.~name variables", 'Replace all imports for "~name" with "variables"')

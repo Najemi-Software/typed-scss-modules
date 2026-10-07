@@ -1,4 +1,6 @@
-import { pathToFileURL } from "url";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath, pathToFileURL } from "url";
 
 // import { Importer as ModernImporter } from "sass-embedded";
 import type { FileImporter, PromiseOr, Importer as SassImporter } from "sass";
@@ -25,6 +27,7 @@ export interface IAliases {
 interface IAliasImporterOptions {
     aliases: IAliases;
     aliasPrefixes: IAliases;
+    loadPaths?: string[];
 }
 
 /**
@@ -46,17 +49,52 @@ export const aliasResolver =
         return null;
     };
 
+const SASS_EXTENSIONS = [".scss", ".sass", ".css"];
+
+/**
+ * Whether Sass would find a stylesheet for the given path, taking partials,
+ * index files and file extensions into account.
+ */
+const stylesheetExists = (file: string) => {
+    const dirname = path.dirname(file);
+    const basename = path.basename(file);
+    const candidates = SASS_EXTENSIONS.includes(path.extname(file))
+        ? [file, path.join(dirname, `_${basename}`)]
+        : SASS_EXTENSIONS.flatMap((ext) => [
+              `${file}${ext}`,
+              path.join(dirname, `_${basename}${ext}`),
+              path.join(file, `index${ext}`),
+              path.join(file, `_index${ext}`),
+          ]);
+
+    return candidates.some((candidate) => fs.existsSync(candidate));
+};
+
 export const aliasImporter = <TSync extends SyncMode = "sync">({
     aliases,
     aliasPrefixes,
+    loadPaths = [],
 }: IAliasImporterOptions): FileImporter<TSync> => {
     const resolveFileUrl = aliasResolver({ aliases, aliasPrefixes });
 
     return {
-        findFileUrl(url): PromiseOr<URL | null, TSync> {
+        findFileUrl(url, { containingUrl }): PromiseOr<URL | null, TSync> {
             const alias = resolveFileUrl(url);
             if (!alias) return null;
-            return pathToFileURL(alias);
+
+            // Resolve relative aliases against the importing file's directory, the
+            // current working directory and the load paths (in that order), like
+            // Sass does for regular imports. Fall back to the current working
+            // directory, so Sass reports the stylesheet as not found.
+            const baseDirs = [
+                ...(containingUrl?.protocol === "file:" ? [path.dirname(fileURLToPath(containingUrl))] : []),
+                process.cwd(),
+                ...loadPaths,
+            ];
+            const resolved =
+                baseDirs.map((dir) => path.resolve(dir, alias)).find(stylesheetExists) ?? path.resolve(alias);
+
+            return pathToFileURL(resolved);
         },
     };
 };
@@ -80,7 +118,8 @@ export const customImporters = <TSync extends SyncMode = "sync">({
     aliases = {},
     aliasPrefixes = {},
     importers = [],
-}: ISASSImporterOptions): Importer<TSync>[] => {
-    const bundled: Importer<TSync>[] = [aliasImporter<TSync>({ aliases, aliasPrefixes })];
+    loadPaths = [],
+}: ISASSImporterOptions & { loadPaths?: string[] }): Importer<TSync>[] => {
+    const bundled: Importer<TSync>[] = [aliasImporter<TSync>({ aliases, aliasPrefixes, loadPaths })];
     return bundled.concat(importers);
 };
