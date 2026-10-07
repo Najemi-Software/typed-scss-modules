@@ -107,7 +107,7 @@
         "oxlint-tsgolint": "0.15.0",
         "sass": "^1.97.1",
         "sass-embedded": "^1.97.1",
-        "typescript": "^5.8.3",
+        "typescript": "^6.0.3",
         "vitest": "^4.1.10"
     },
     "peerDependencies": {
