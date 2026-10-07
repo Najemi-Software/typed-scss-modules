@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [14.11.1] - 2026-10-07
+
+### Fixed
+
+- Raise the minimum supported Node.js version in `engines` from 22.0.0 to 22.12.0, as runtime dependencies `rolldown` and `rolldown-require` require Node.js `>=22.12.0` on the 22.x line
+
 ## [14.11.0] - 2026-10-07
 
 ### Changed
@@ -673,6 +679,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[14.11.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.11.0...v14.11.1
 [14.11.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.10.0...v14.11.0
 [14.10.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.9.0...v14.10.0
 [14.9.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.8.0...v14.9.0
