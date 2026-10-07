@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [14.11.3] - 2026-10-08
+
+### Fixed
+
+- Use pnpm instead of npm in the `prepare` script (`npm run build` -> `pnpm run build`), a leftover from the migration from npm to pnpm
+
 ## [14.11.2] - 2026-10-08
 
 ### Fixed
@@ -685,6 +691,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[14.11.3]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.11.2...v14.11.3
 [14.11.2]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.11.1...v14.11.2
 [14.11.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.11.0...v14.11.1
 [14.11.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.10.0...v14.11.0
