@@ -492,6 +492,7 @@ jobs:
                   esac
 
             - name: Setup pnpm
+              if: ${{ needs.calculate-next-release-version.outputs.publish == 'true' }}
               uses: pnpm/action-setup@v5
 
             - name: Setup Node.js
