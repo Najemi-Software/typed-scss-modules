@@ -16,7 +16,7 @@ jobs:
         permissions:
             actions: write
         steps:
-            - name: Cancel previous check-approve runs for this PR
+            - name: Cancel previous approval-check runs for this PR
               env:
                   GH_TOKEN: ${{ github.token }}
               run: |
@@ -26,7 +26,7 @@ jobs:
 
                   # Cancel all in-progress, queued, and waiting runs on the same branch (excluding self)
                   for STATUS in in_progress queued waiting; do
-                    gh api "repos/${REPO}/actions/workflows/check-approve.yml/runs?status=${STATUS}&branch=${BRANCH}&per_page=100" \
+                    gh api "repos/${REPO}/actions/workflows/pull-request-approval-check.yml/runs?status=${STATUS}&branch=${BRANCH}&per_page=100" \
                       --jq ".workflow_runs[] | select(.id != ${CURRENT_RUN_ID}) | .id" \
                     | while read -r RUN_ID; do
                       echo "Cancelling ${STATUS} run ${RUN_ID}"
