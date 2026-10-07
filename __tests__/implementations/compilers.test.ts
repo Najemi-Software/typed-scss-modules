@@ -1,5 +1,5 @@
 import { type AsyncCompiler } from "sass";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { type Mock, afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import {
     disposeAllCompilers,
@@ -12,8 +12,10 @@ describe("get compilers", () => {
     let mock: Partial<Implementation>;
     let syncCompiler: SyncCompiler;
     let asyncCompiler: AsyncCompiler;
+    let asyncCompilerDispose: Mock<() => Promise<void>>;
 
     beforeEach(() => {
+        asyncCompilerDispose = vi.fn<() => Promise<void>>();
         syncCompiler = {
             compile: vi.fn(),
             compileString: vi.fn(),
@@ -22,7 +24,7 @@ describe("get compilers", () => {
         asyncCompiler = {
             compileAsync: vi.fn(),
             compileStringAsync: vi.fn(),
-            dispose: vi.fn(),
+            dispose: asyncCompilerDispose,
         };
         mock = {
             initCompiler: vi.fn().mockReturnValue(syncCompiler),
@@ -71,6 +73,6 @@ describe("get compilers", () => {
         await getAsyncCompiler(iml);
         await disposeAllCompilers();
         expect(syncCompiler.dispose).toHaveBeenCalled();
-        expect(asyncCompiler.dispose).toHaveBeenCalled();
+        expect(asyncCompilerDispose).toHaveBeenCalled();
     });
 });
