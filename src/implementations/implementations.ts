@@ -31,22 +31,16 @@ export type AsyncCompiler = SassAsyncCompiler | SassEmbeddedAsyncCompiler;
  *
  * @param resolver DO NOT USE - this is unfortunately necessary only for testing.
  */
-export const getDefaultImplementation = (resolver?: RequireResolve): Implementations => {
+export const getDefaultImplementation = (
+    resolver: (specifier: string) => string = (specifier) => import.meta.resolve(specifier),
+): Implementations => {
     let pkg: Implementations = "sass";
 
     try {
-        if (resolver) {
-            resolver("sass");
-        } else {
-            void import("sass");
-        }
+        resolver("sass");
     } catch {
         try {
-            if (resolver) {
-                resolver("sass-embedded");
-            } else {
-                void import("sass-embedded");
-            }
+            resolver("sass-embedded");
             pkg = "sass-embedded";
         } catch {
             pkg = "sass";
