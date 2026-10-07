@@ -46,7 +46,8 @@ export const checkFile = async (file: string, options: IConfigOptions): Promise<
 
         return true;
     } catch (error) {
-        alerts.error(`An error occurred checking ${file}:\n${JSON.stringify(error)}`);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        alerts.error(`An error occurred checking ${file}:\n${errorMessage}`);
         return false;
     }
 };
