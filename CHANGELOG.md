@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [15.0.0] - 2026-10-08
+
+### Breaking Changes
+
+- Exit with a non-zero exit code (`1`) when any file fails to compile. Previously, compile errors were only logged and the process exited with `0`, so e.g. a CI run with a broken `.scss` file still passed. The remaining files are still processed
+
 ## [14.13.2] - 2026-10-08
 
 ### Fixed
@@ -716,6 +722,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[15.0.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.2...v15.0.0
 [14.13.2]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.1...v14.13.2
 [14.13.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.0...v14.13.1
 [14.13.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.12.0...v14.13.0

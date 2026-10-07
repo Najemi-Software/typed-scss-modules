@@ -68,5 +68,8 @@ export const writeFile = async (file: string, options: ICLIOptions): Promise<voi
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
         alerts.error(`Write File '${file}' error: ${errorMessage}`);
+
+        // Report the failure via the exit code without aborting the other files.
+        process.exitCode = 1;
     }
 };
