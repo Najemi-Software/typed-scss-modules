@@ -18,7 +18,8 @@ const removeFile = (file: string): void => {
             alerts.success(`[REMOVED] ${file}`);
         }
     } catch (error) {
-        alerts.error(`An error occurred removing ${file}:\n${JSON.stringify(error)}`);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        alerts.error(`An error occurred removing ${file}:\n${errorMessage}`);
     }
 };
 

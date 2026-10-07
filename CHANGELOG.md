@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [15.0.1] - 2026-10-08
+
+### Fixed
+
+- Error messages missing from logs when checking (`--listDifferent`) or removing files fails, as errors were serialized with `JSON.stringify`, which omits the non-enumerable `message` of `Error` instances (e.g. logged `{}`). The error message is now logged instead, like in `writeFile`
+
 ## [15.0.0] - 2026-10-08
 
 ### Breaking Changes
@@ -722,6 +728,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[15.0.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v15.0.0...v15.0.1
 [15.0.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.2...v15.0.0
 [14.13.2]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.1...v14.13.2
 [14.13.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.0...v14.13.1
