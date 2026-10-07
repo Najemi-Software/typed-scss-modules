@@ -40,7 +40,7 @@ export const aliasResolver =
         const prefixMatch = Object.keys(aliasPrefixes).find((prefix) => url.startsWith(prefix));
 
         if (prefixMatch) {
-            return aliasPrefixes[prefixMatch] + url.substr(prefixMatch.length);
+            return aliasPrefixes[prefixMatch] + url.slice(prefixMatch.length);
         }
 
         return null;
