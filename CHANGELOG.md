@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [15.0.2] - 2026-10-21
+
+### Fixed
+
+- Unmet peer dependency on install (e.g. `rolldown-require 2.0.35` → `unmet peer rolldown@1.2.13: found 1.2.14`), as each `rolldown-require` release requires an exact `rolldown` version as a peer, while both were declared with independent caret ranges. Both are now pinned to a matching pair (`rolldown` `^1.1.5` -> `1.2.13`, `rolldown-require` `^2.0.20` -> `2.0.35`)
+
 ## [15.0.1] - 2026-10-08
 
 ### Fixed
@@ -728,6 +734,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **types:** add types for reserved-words package ([aa8a782](https://github.com/skovy/typed-scss-modules/commit/aa8a7821a30eeb64a1dd2f0bee2de7c29c08e9fa))
 - **yarn:** add missing yarn.lock entry ([998b672](https://github.com/skovy/typed-scss-modules/commit/998b6724951d7df72aebabf4f12000d282089e92))
 
+[15.0.2]: https://github.com/Najemi-Software/typed-scss-modules/compare/v15.0.1...v15.0.2
 [15.0.1]: https://github.com/Najemi-Software/typed-scss-modules/compare/v15.0.0...v15.0.1
 [15.0.0]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.2...v15.0.0
 [14.13.2]: https://github.com/Najemi-Software/typed-scss-modules/compare/v14.13.1...v14.13.2

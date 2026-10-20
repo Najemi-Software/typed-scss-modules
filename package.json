@@ -73,8 +73,8 @@
         "postcss": "^8.4.49",
         "postcss-modules": "^6.0.1",
         "reserved-words": "^0.1.2",
-        "rolldown": "^1.1.5",
-        "rolldown-require": "^2.0.20",
+        "rolldown": "1.2.13",
+        "rolldown-require": "2.0.35",
         "slash": "^3.0.0",
         "yargs": "^17.7.2"
     },
